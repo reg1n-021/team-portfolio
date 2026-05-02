@@ -9,4 +9,7 @@ def index():
     {'name_of_project' : 'Сайт для авиокомпании', 'link': 'http/чтото там'}
     ]
     return render_template('index.html', title = 'Home',projects=projects)
-    
+
+@app_var.errorhandler(404)
+def page_not_found(error):
+    return render_template('index.html'), 404
