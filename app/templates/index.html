@@ -1,18 +1,54 @@
 <!DOCTYPE html>
-<html>
-    <head>
-    <title>Home</title>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR Dev | Сайты-визитки под ключ</title>
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
-<body> 
-    <h1> Hello world</h1>
-    <div>
-        {% for project in projects %}
-            <div>Our projects: <b>{{project.name_of_project}}</b></div>
-        {% endfor %}
+<body>
+    <div class="container">
+        <!-- header -->
+        <div class="header">
+            <div class="brand">
+                <h1>MR Dev</h1>
+            </div>
+            <div class="email">catran12@yandex.ru</div>
+        </div>
+
+        <!-- about section -->
+        <div class="about">
+            <h2>Сайты-визитки под ключ</h2>
+            <p>
+                Мы - Магомед и Рамазан. Создаем сайты под ключ. Я, Магомед - занимаюсь фронтендом, 
+                пишу лицо сайта, подбираю стили. В это время Рамазан занимается бэкендом, 
+                разбирается с шестерёнками сайта, чтобы сайт работал.
+            </p>
+        </div>
+
+        <!-- sites grid -->
+        <div class="sites-grid">
+            <!-- card 1 -->
+            <div class="site-card">
+                <div class="photo"></div>
+                <h3 class="site-name">название сайта 1</h3>
+                <a href="#" class="btn-link">кнопка ссылка</a>
+            </div>
+            <!-- card 2 -->
+            <div class="site-card">
+                <div class="photo"></div>
+                <h3 class="site-name">название сайта 2</h3>
+                <a href="#" class="btn-link">кнопка ссылка</a>
+            </div>
+        </div>
+
+        <!-- js demo button -->
+        <div class="demo-panel">
+            <button class="js-btn" id="demoBtn">кнопка JS</button>
+            <div id="message"></div>
+        </div>
     </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
-
-
-
-        
