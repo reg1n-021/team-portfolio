@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>MR Dev — контакты</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="light-theme">
+
+    <div class="animated-bg">
+        <div class="sphere-1"></div>
+        <div class="sphere-2"></div>
+        <div class="sphere-3"></div>
+    </div>
+
+    <nav class="floating-nav">
+        <div class="nav-container">
+            <div class="logo">MR Dev</div>
+            <div class="nav-links">
+                <a href="works.html">Работы</a>
+                <a href="team.html">Команда</a>
+                <a href="contact.html">Связаться</a>
+            </div>
+            <div class="nav-right">
+                <button class="theme-toggle" id="themeToggle">🌙</button>
+                <button class="nav-btn" id="navBtn">Связаться</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">✕</button>
+            <div class="modal-icon">📧</div>
+            <h2>Написать на почту</h2>
+            <p>Нажми «Продолжить» — откроется Яндекс.Почта</p>
+            <div class="modal-email">mrdevzm@gmail.com</div>
+            <button class="modal-btn" id="modalSendBtn">Продолжить →</button>
+            <button class="modal-cancel" id="modalCancel">Отмена</button>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="hero-brand">
+            <h1 class="brand-big">MR Dev</h1>
+            <p class="brand-sub">связаться</p>
+        </div>
+
+        <!-- ПРОСТО ТЕКСТ, БЕЗ КЛИКОВ И АНИМАЦИЙ -->
+        <div class="contacts-simple">
+            <div class="contact-simple-block">
+                <div class="contact-simple-icon">📧</div>
+                <div class="contact-simple-info">
+                    <h3>Почта</h3>
+                    <p class="contact-simple-addr">mrdevzm@gmail.com</p>
+                    <p class="contact-simple-note">отвечаем в течение дня</p>
+                </div>
+            </div>
+
+            <div class="contact-simple-block">
+                <div class="contact-simple-icon">📞</div>
+                <div class="contact-simple-info">
+                    <h3>Телефон</h3>
+                    <p class="contact-simple-addr">+7 925 958 1906</p>
+                    <p class="contact-simple-note">звоните с 10 до 22</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">MR Dev</div>
+            <p>сделано двумя друзьями</p>
+            <div class="footer-contacts">
+                <span>📧 mrdevzm@gmail.com</span>
+                <span>📞 +7 925 958 1906</span>
+            </div>
+            <p class="footer-copy">© 2026</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
