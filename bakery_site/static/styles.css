@@ -1,0 +1,184 @@
+:root {
+    --primary: #f7b70b;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    padding-top: 70px;
+}
+
+/* Шапка */
+.navbar {
+    background: white !important;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+}
+
+.navbar-scrolled {
+    background: rgba(255,255,255,0.98) !important;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.nav-link {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0 10px;
+    transition: 0.3s;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--primary) !important;
+}
+
+/* Герой */
+.hero-section {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://cdn-ru.bitrix24.ru/b37893456/landing/45c/45c8336d107f82317d563e5e91985772/bg_1x.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-section h1 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 60px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.btn-order, .btn-order-small {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 15px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-order-small {
+    padding: 12px 30px;
+}
+
+.btn-order:hover, .btn-order-small:hover {
+    background: #d49c00;
+    color: white;
+    text-decoration: none;
+}
+
+/* Секции */
+.section {
+    padding: 80px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 42px;
+}
+
+.bg-light {
+    background: #f8f9fa;
+}
+
+/* Карточки */
+.feature-box, .product-card, .price-card, .review-card {
+    transition: 0.3s;
+}
+
+.feature-box {
+    text-align: center;
+    padding: 30px 20px;
+    border: 1px solid #eee;
+    background: white;
+    border-radius: 8px;
+    height: 100%;
+}
+
+.feature-box i {
+    font-size: 50px;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.product-card {
+    text-align: center;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    height: 100%;
+}
+
+.product-card img {
+    width: 100%;
+    padding: 20px;
+}
+
+.price-card {
+    background: rgba(255,255,255,0.1);
+    padding: 40px 20px;
+    border-radius: 15px;
+    text-align: center;
+    height: 100%;
+}
+
+.price-card.popular {
+    background: var(--primary);
+    transform: scale(1.05);
+}
+
+.price {
+    font-size: 36px;
+    font-weight: 700;
+    margin: 20px 0;
+}
+
+.review-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.review-card p {
+    font-style: italic;
+    flex-grow: 1;
+}
+
+.review-author {
+    text-align: right;
+    font-weight: 700;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+/* Форма */
+.form-control {
+    border-radius: 30px;
+    padding: 12px 20px;
+    margin-bottom: 15px;
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+    .hero-section h1 { font-size: 36px; }
+    .section-title h2 { font-size: 32px; }
+    .price-card.popular { transform: none; }
+}
