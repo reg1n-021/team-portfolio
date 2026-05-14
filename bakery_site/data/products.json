@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "Багет французский",
+    "category": "bread",
+    "price": 120,
+    "weight": "300г",
+    "description": "Хрустящая корочка, мягкий мякиш. Изготовлен по традиционной рецептуре.",
+    "image": "baget.jpg",
+    "in_stock": true
+  },
+  {
+    "id": 2,
+    "name": "Круассан с шоколадом",
+    "category": "pastry",
+    "price": 85,
+    "weight": "110г",
+    "description": "Слоёное тесто, бельгийский шоколад внутри.",
+    "image": "croissant.jpg",
+    "in_stock": true
+  },
+  {
+    "id": 3,
+    "name": "Бородинский хлеб",
+    "category": "bread",
+    "price": 95,
+    "weight": "500г",
+    "description": "Ржаной хлеб с тмином и кориандром. Классика.",
+    "image": "borodinsky.jpg",
+    "in_stock": true
+  },
+  {
+    "id": 4,
+    "name": "Сдоба с маком",
+    "category": "pastry",
+    "price": 65,
+    "weight": "90г",
+    "description": "Воздушная сдоба с маком и ванилью.",
+    "image": "sdoba.jpg",
+    "in_stock": true
+  },
+  {
+    "id": 5,
+    "name": "Торт медовик",
+    "category": "cakes",
+    "price": 1500,
+    "weight": "1кг",
+    "description": "Классический медовый торт. Готовим под заказ.",
+    "image": "medovik.jpg",
+    "in_stock": false
+  }
+]
