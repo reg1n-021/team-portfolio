@@ -10,13 +10,13 @@ def load_products():
         return json.load(f)
     
 def load_reviews():
-    with open(DATA_DIR / 'reviews.json', 'r', encoding='uts-8',) as f:
+    with open(DATA_DIR / 'reviews.json', 'r', encoding='utf-8',) as f:
         return json.load(f)
     
 def save_order(order_data):
     file_path = DATA_DIR / 'orders.json'
     if file_path.exists():
-        with open(file_path, 'r', encoding='uts-8',) as f:
+        with open(file_path, 'r', encoding='utf-8',) as f:
             orders = json.load(f)
     else:
         orders = []
@@ -25,5 +25,5 @@ def save_order(order_data):
     orders.append(order_data)
     
     #Сохраняем обратно
-    with open(file_path, 'w', encoding='uts-8',) as f:
+    with open(file_path, 'w', encoding='utf-8',) as f:
         json.dump(orders, f, ensure_ascii=False, indent=2)

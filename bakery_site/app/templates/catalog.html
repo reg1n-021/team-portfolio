@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Каталог</title>
+</head>
+<body>
+    {% for product in products %}
+<div class="col-md-4">
+    <div class="product-card">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.price }} ₽</p>
+        <p>{{ product.description }}</p>
+    </div>
+</div>
+{% endfor %}
+</body>
+</html>

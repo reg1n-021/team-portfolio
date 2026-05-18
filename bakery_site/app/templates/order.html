@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Оформление заказа - Пекарня</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+        form div { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        button { background: #d4a373; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #b5835a; }
+        .error { color: red; font-size: 14px; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Оформление заказа</h1>
+    
+    <form method="POST" action="{{ url_for('order') }}">
+        {{ form.hidden_tag() }}
+        
+        <div>
+            {{ form.name.label }}
+            {{ form.name(placeholder="Ваше имя") }}
+            {% for error in form.name.errors %}
+                <div class="error">{{ error }}</div>
+            {% endfor %}
+        </div>
+        
+        <div>
+            {{ form.phone.label }}
+            {{ form.phone(placeholder="Ваш телефон") }}
+            {% for error in form.phone.errors %}
+                <div class="error">{{ error }}</div>
+            {% endfor %}
+        </div>
+        
+        <div>
+            {{ form.product.label }}
+            {{ form.product(placeholder="Что хотите заказать?") }}
+        </div>
+        
+        <div>
+            {{ form.comment.label }}
+            {{ form.comment(placeholder="Комментарий (необязательно)", rows=4) }}
+        </div>
+        
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+    
+    <p><a href="/">← Вернуться на главную</a></p>
+</body>
+</html>
