@@ -1,7 +1,7 @@
 from app import app_var
 from flask import redirect, render_template, request
-from app.models import load_products, load_reviews
-from app.forms import Orderform
+from app.models import load_products, load_reviews, save_order
+from app.forms import OrderForm
 from flask import url_for
 
 @app_var.route("/")
@@ -16,9 +16,9 @@ def catalog():
     products = load_products()
     return render_template('catalog.html', products=products)
 
-@app_var.route('/order')
+@app_var.route('/order', methods=['GET', 'POST'])
 def order():
-    form = Orderform
+    form = OrderForm()
     
     if request.method == 'GET':
         product_name = request.args.get('product')
@@ -32,6 +32,7 @@ def order():
         'product': form.product.data,
         'comment': form.comment.data
         }  
+        save_order(order_data)
         return redirect( url_for('thanks'))
     return render_template('order.html', form=form)
 
@@ -45,3 +46,7 @@ def product_detail(product_id):
         return "Товар не найден", 404
     
     return render_template('product.html', product=product)
+
+@app_var.route('/thanks')
+def thanks():
+    return render_template('thanks.html')
