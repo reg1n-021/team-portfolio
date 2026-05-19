@@ -182,3 +182,22 @@ body {
     .section-title h2 { font-size: 32px; }
     .price-card.popular { transform: none; }
 }
+/* Рейтинг отзывов */
+.review-stars {
+    color: #f7b70b;
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+/* Картинки в карточках */
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* Детальная карточка */
+.product-detail img {
+    width: 100%;
+    border-radius: 15px;
+}
