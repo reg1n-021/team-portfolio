@@ -2,37 +2,32 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Пекарня - Свежая выпечка на заказ</title>
-    <!-- Шрифты и CSS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пекарня - свежая выпечка</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
 </head>
 <body>
 
-<!-- НАВИГАЦИЯ -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="#">COMPANY 24</a>
+        <a class="navbar-brand" href="{{ url_for('index') }}">COMPANY 24</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="#home">Главная</a></li>
-                <li class="nav-item"><a class="nav-link" href="#about">О нас</a></li>
-                <li class="nav-item"><a class="nav-link" href="#products">Наша выпечка</a></li>
-                <li class="nav-item"><a class="nav-link" href="#subscribe">Подписка</a></li>
-                <li class="nav-item"><a class="nav-link" href="#reviews">Отзывы</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contacts">Контакты</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Главная</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('catalog') }}">Каталог</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}#reviews">Отзывы</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}#contacts">Контакты</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- ГЛАВНЫЙ ЭКРАН -->
 <section id="home" class="hero-section">
     <div class="container">
         <h1>Выпечка на заказ<br>от хлеба до сдобных булочек!</h1>
@@ -41,7 +36,6 @@
     </div>
 </section>
 
-<!-- О НАС -->
 <section id="about" class="section">
     <div class="container">
         <div class="section-title">
@@ -57,43 +51,58 @@
     </div>
 </section>
 
-<!-- НАША ВЫПЕЧКА -->
 <section id="products" class="section bg-light">
     <div class="container">
         <div class="section-title"><h2>Наша выпечка</h2><p>Большое разнообразие хлеба, пирогов и булочек</p></div>
         <div class="row">
-            <div class="col-md-4"><div class="product-card"><img src="https://cdn.bitrix24.site/bitrix/images/landing/krayt/bakery_products/2_1.png" alt="Хлеб"><h3>Хлеб</h3><p>Пшеничный, ржаной, отрубной, зерновой</p></div></div>
-            <div class="col-md-4"><div class="product-card"><img src="https://cdn.bitrix24.site/bitrix/images/landing/krayt/bakery_products/2_2.png" alt="Пироги"><h3>Пироги</h3><p>Сладкие и сытные, с разными начинками</p></div></div>
-            <div class="col-md-4"><div class="product-card"><img src="https://cdn.bitrix24.site/bitrix/images/landing/krayt/bakery_products/2_3.png" alt="Булочки"><h3>Булочки</h3><p>Сладкие и соленые, включая Синнабоны</p></div></div>
+            {% for product in products[:6] %}
+            <div class="col-md-4">
+                <div class="product-card">
+                    <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}">
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.price }} ₽ / {{ product.weight }}</p>
+                    <a href="{{ url_for('product', id=product.id) }}" class="btn-order-small">Подробнее</a>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
 
-<!-- ПОДПИСКА -->
-<section id="subscribe" class="section subscription">
+<section id="popular" class="section">
     <div class="container">
-        <div class="section-title"><h2>Наши предложения</h2></div>
+        <div class="section-title"><h2>Популярное</h2></div>
         <div class="row">
-            <div class="col-md-4"><div class="price-card"><h3>Хлеб на неделю</h3><p>5 дней, пн-пт</p><div class="price">500 ₽</div><a href="#contacts" class="btn-order-small">Заказать</a></div></div>
-            <div class="col-md-4"><div class="price-card popular"><h3>Хлеб на неделю</h3><p>7 дней, пн-вс</p><div class="price">650 ₽</div><a href="#contacts" class="btn-order-small">Заказать</a></div></div>
-            <div class="col-md-4"><div class="price-card"><h3>Хлеб на месяц</h3><p>4 недели, пн-пт</p><div class="price">1500 ₽</div><a href="#contacts" class="btn-order-small">Заказать</a></div></div>
+            {% for product in products[:3] %}
+            <div class="col-md-4">
+                <div class="product-card">
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.price }} ₽ / {{ product.weight }}</p>
+                    <a href="{{ url_for('order', product_id=product.id) }}" class="btn-order-small">Заказать</a>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
 
-<!-- ОТЗЫВЫ -->
 <section id="reviews" class="section bg-light">
     <div class="container">
-        <div class="section-title"><h2>Отзывы наших клиентов</h2></div>
+        <div class="section-title"><h2>Что говорят клиенты</h2></div>
         <div class="row">
-            <div class="col-md-4"><div class="review-card"><p>“Оформила подписку на хлебную неделю и теперь каждое утро балую себя свежим хлебом!”</p><div class="review-author">Мадина Зулаева</div></div></div>
-            <div class="col-md-4"><div class="review-card"><p>“В этой пекарне самые восхитительные булочки! Каждое утро сэндвич из ароматного хлеба”</p><div class="review-author">Габриэль Савчи</div></div></div>
-            <div class="col-md-4"><div class="review-card"><p>“Если вы не пробовали местный Синнабон, то упустили многое! Обязательно попробуйте!”</p><div class="review-author">Сулейман Керимов</div></div></div>
+            {% for review in reviews %}
+            <div class="col-md-4">
+                <div class="review-card">
+                    <p>“{{ review.text }}”</p>
+                    <div class="review-author">{{ review.name }}</div>
+                    <div class="review-stars">{% for i in range(review.rating) %}★{% endfor %}</div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
 
-<!-- КОНТАКТЫ И ФОРМА -->
 <section id="contacts" class="section">
     <div class="container">
         <div class="section-title"><h2>Свяжитесь с нами</h2></div>
@@ -106,22 +115,19 @@
                 <p>Ежедневно с 8:00 до 20:00</p>
             </div>
             <div class="col-md-6">
-                <form id="feedback-form">
-                    <input type="text" id="name" class="form-control" placeholder="Ваше имя" required>
-                    <input type="tel" id="phone" class="form-control" placeholder="Ваш телефон" required>
-                    <textarea id="message" class="form-control" rows="4" placeholder="Ваше сообщение" required></textarea>
-                    <button type="submit" class="btn-order-small">Отправить</button>
-                    <div id="form-status" style="margin-top: 15px;"></div>
+                <form action="{{ url_for('order') }}" method="POST">
+                    <input type="text" name="name" class="form-control" placeholder="Ваше имя" required>
+                    <input type="tel" name="phone" class="form-control" placeholder="Ваш телефон" required>
+                    <input type="text" name="product" class="form-control" placeholder="Что хотите заказать?">
+                    <textarea name="comment" class="form-control" rows="3" placeholder="Комментарий"></textarea>
+                    <button type="submit" class="btn-order-small">Отправить заказ</button>
                 </form>
             </div>
         </div>
     </div>
 </section>
 
-<!-- СКРИПТЫ -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{{ url_for('static', filename='script.js') }}"></script>
-
 </body>
 </html>
