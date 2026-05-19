@@ -2,6 +2,7 @@ from app import app_var
 from flask import redirect, render_template, request
 from app.models import load_products, load_reviews
 from app.forms import Orderform
+from flask import url_for
 
 @app_var.route("/")
 @app_var.route("/index")
@@ -30,6 +31,17 @@ def order():
         'phone': form.phone.data,
         'product': form.product.data,
         'comment': form.comment.data
-        }
-        return 'Заказ принят!'  
+        }  
+        return redirect( url_for('thanks'))
     return render_template('order.html', form=form)
+
+@app_var.route('/product/<int:product_id>')
+def product_detail(product_id):
+    products = load_products()
+    
+    product = next((p for p in products if p['id'] == product_id), None)
+    
+    if not product:
+        return "Товар не найден", 404
+    
+    return render_template('product.html', product=product)
