@@ -6,7 +6,7 @@
     "price": 120,
     "weight": "300г",
     "description": "Хрустящая корочка, мягкий мякиш. Изготовлен по традиционной рецептуре.",
-    "image": "baget.jpg",
+    "image": "Багет_французский.jpg",
     "in_stock": true
   },
   {
@@ -16,7 +16,7 @@
     "price": 85,
     "weight": "110г",
     "description": "Слоёное тесто, бельгийский шоколад внутри.",
-    "image": "croissant.jpg",
+    "image": "Круассан_с_шоколадом.jpg",
     "in_stock": true
   },
   {
@@ -26,7 +26,7 @@
     "price": 95,
     "weight": "500г",
     "description": "Ржаной хлеб с тмином и кориандром. Классика.",
-    "image": "borodinsky.jpg",
+    "image": "Бородинский_хлеб.jpg",
     "in_stock": true
   },
   {
@@ -36,7 +36,7 @@
     "price": 65,
     "weight": "90г",
     "description": "Воздушная сдоба с маком и ванилью.",
-    "image": "sdoba.jpg",
+    "image": "Сдоба_с_маком.jpg",
     "in_stock": true
   },
   {
@@ -46,7 +46,7 @@
     "price": 1500,
     "weight": "1кг",
     "description": "Классический медовый торт. Готовим под заказ.",
-    "image": "medovik.jpg",
+    "image": "Торт_медовик.jpg",
     "in_stock": false
   }
 ]
