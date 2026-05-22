@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
 </head>
 <body>
 
@@ -32,7 +32,7 @@
     <div class="container">
         <h1>Выпечка на заказ<br>от хлеба до сдобных булочек!</h1>
         <p class="hero-text">Нами организована служба доставки и мы готовы привезти к Вам домой самый свежий хлеб и выпечку!</p>
-        <a href="#contacts" class="btn-order">Заказать</a>
+        <a href="{{ url_for('catalog') }}" class="btn-order">Перейти в каталог</a>  <!-- Кнопка изменена -->
     </div>
 </section>
 
@@ -58,10 +58,9 @@
             {% for product in products[:6] %}
             <div class="col-md-4">
                 <div class="product-card">
-                    <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}">
                     <h3>{{ product.name }}</h3>
                     <p>{{ product.price }} ₽ / {{ product.weight }}</p>
-                    <a href="{{ url_for('product', product_id=product.id) }}" class="btn-order-small">Подробнее</a>
+                    <a href="{{ url_for('product', id=product.id) }}" class="btn-order-small">Подробнее</a>
                 </div>
             </div>
             {% endfor %}
@@ -103,25 +102,16 @@
     </div>
 </section>
 
+<!-- ФОРМА УБРАНА, ОСТАЛИСЬ ТОЛЬКО КОНТАКТЫ -->
 <section id="contacts" class="section">
     <div class="container">
-        <div class="section-title"><h2>Свяжитесь с нами</h2></div>
+        <div class="section-title"><h2>Наши контакты</h2></div>
         <div class="row">
-            <div class="col-md-6">
-                <h4>Наши контакты</h4>
+            <div class="col-md-6 offset-md-3">
                 <p><i class="fas fa-phone"></i> +7 922 427-01-01</p>
                 <p><i class="fas fa-envelope"></i> catran12@yandex.ru</p>
                 <h4>Мы работаем</h4>
                 <p>Ежедневно с 8:00 до 20:00</p>
-            </div>
-            <div class="col-md-6">
-                <form action="{{ url_for('order') }}" method="POST">
-                    <input type="text" name="name" class="form-control" placeholder="Ваше имя" required>
-                    <input type="tel" name="phone" class="form-control" placeholder="Ваш телефон" required>
-                    <input type="text" name="product" class="form-control" placeholder="Что хотите заказать?">
-                    <textarea name="comment" class="form-control" rows="3" placeholder="Комментарий"></textarea>
-                    <button type="submit" class="btn-order-small">Отправить заказ</button>
-                </form>
             </div>
         </div>
     </div>
