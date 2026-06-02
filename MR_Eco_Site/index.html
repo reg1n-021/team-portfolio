@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR Eco | Техника с заботой о планете</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-seedling"></i>
+                <span id="brandName">MR Eco</span>
+            </div>
+            <nav class="nav">
+                <a href="#" id="navHome">Главная</a>
+                <a href="#" id="navShop">Товары</a>
+                <a href="#" id="navDeals">Акции</a>
+                <a href="#" id="navAbout">О нас</a>
+            </nav>
+            <div class="lang-switch">
+                <button data-lang="ru" class="lang-btn active">RU</button>
+                <button data-lang="en" class="lang-btn">EN</button>
+                <button data-lang="kz" class="lang-btn">KZ</button>
+            </div>
+            <div class="cart-icon" id="cartIcon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 id="heroTitle">Техника, которая <span class="highlight">не вредит природе</span></h1>
+            <p id="heroDesc">Ноутбуки, телефоны, телевизоры, чайники и кухонные принадлежности. Доставка за 1 день.</p>
+            <button class="btn-primary" id="shopNowBtn">В каталог →</button>
+        </div>
+    </section>
+
+    <section class="info-panel" id="infoPanel" style="display: none;">
+        <div class="container">
+            <div class="info-card" id="infoCard"></div>
+        </div>
+    </section>
+
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title" id="categoriesTitle">Категории</h2>
+            <div class="category-grid">
+                <div class="category-card" data-category="phones"><i class="fas fa-mobile-alt"></i><h3 id="catPhones">Смартфоны</h3></div>
+                <div class="category-card" data-category="laptops"><i class="fas fa-laptop"></i><h3 id="catLaptops">Ноутбуки</h3></div>
+                <div class="category-card" data-category="tvs"><i class="fas fa-tv"></i><h3 id="catTvs">Телевизоры</h3></div>
+                <div class="category-card" data-category="kitchen"><i class="fas fa-kitchen-set"></i><h3 id="catKitchen">Кухня</h3></div>
+                <div class="category-card" data-category="appliances"><i class="fas fa-blender"></i><h3 id="catAppliances">Техника</h3></div>
+                <div class="category-card" data-category="eco"><i class="fas fa-leaf"></i><h3 id="catEco">Эко</h3></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="products" id="productsSection">
+        <div class="container">
+            <h2 class="section-title" id="productsTitle">Хиты продаж</h2>
+            <div class="products-grid" id="productsGrid"></div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo"><i class="fas fa-seedling"></i> MR Eco</div>
+                <div class="footer-contacts">
+                    <div class="contact-item"><i class="fas fa-envelope"></i><a href="mailto:catran12@yandex.ru">catran12@yandex.ru</a></div>
+                    <div class="contact-item"><i class="fas fa-phone-alt"></i><a href="tel:+79224270101">+7 922 427 01 01</a></div>
+                </div>
+                <div class="socials">
+                    <a href="https://instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://tiktok.com/" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://telegram.org/" target="_blank"><i class="fab fa-telegram"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>© 2026 MR Eco — <span id="footerSlogan">техника с заботой о планете</span></p></div>
+        </div>
+    </footer>
+
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-modal-content">
+            <div class="cart-modal-header"><h3 id="cartTitle">Корзина</h3><span class="cart-close" id="cartClose">&times;</span></div>
+            <div class="cart-modal-body" id="cartModalBody"><p id="cartEmpty">Корзина пуста</p></div>
+            <div class="cart-modal-footer"><button class="btn-primary" id="checkoutBtn" data-i18n="checkout">Оформить заказ</button></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
