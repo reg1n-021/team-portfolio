@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MR Eco | Техника с заботой о планете</title>
+    <title>MR Eco | Современная техника</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -12,88 +12,134 @@
     <header class="header">
         <div class="container header-container">
             <div class="logo">
-                <i class="fas fa-seedling"></i>
-                <span id="brandName">MR Eco</span>
+                <i class="fas fa-microchip"></i>
+                <span>MR Eco</span>
             </div>
             <nav class="nav">
-                <a href="#" id="navHome">Главная</a>
-                <a href="#" id="navShop">Товары</a>
-                <a href="#" id="navDeals">Акции</a>
-                <a href="#" id="navAbout">О нас</a>
+                <a href="index.html">Главная</a>
+                <a href="catalog.html">Каталог</a>
+                <a href="#" id="cartIconMain"><i class="fas fa-shopping-cart"></i> Корзина <span id="cartCount">0</span></a>
+                <a href="profile.html">Профиль</a>
+                <a href="#" id="logoutBtnMain">Выйти</a>
             </nav>
-            <div class="lang-switch">
-                <button data-lang="ru" class="lang-btn active">RU</button>
-                <button data-lang="en" class="lang-btn">EN</button>
-                <button data-lang="kz" class="lang-btn">KZ</button>
-            </div>
-            <div class="cart-icon" id="cartIcon">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-count" id="cartCount">0</span>
-            </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
         </div>
     </header>
 
-    <section class="hero">
-        <div class="container hero-content">
-            <h1 id="heroTitle">Техника, которая <span class="highlight">не вредит природе</span></h1>
-            <p id="heroDesc">Ноутбуки, телефоны, телевизоры, чайники и кухонные принадлежности. Доставка за 1 день.</p>
-            <button class="btn-primary" id="shopNowBtn">В каталог →</button>
+    <section class="hero" style="background-image: url('https://th.bing.com/th/id/OIP.uucFGCgbG20DFFezABgKbgHaE7?r=0&o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3'); background-size: cover; background-position: center; position: relative;">
+        <div style="position: absolute; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.55);"></div>
+        <div class="container hero-content" style="position: relative; z-index: 2;">
+            <h1 style="color: white;">Техника, которая <span class="highlight" style="color: #f57c00;">работает на вас</span></h1>
+            <p style="color: white;">Ноутбуки, телефоны, телевизоры, чайники и кухонные принадлежности. Доставка за 1 день.</p>
+            <button class="btn-primary" onclick="window.location.href='catalog.html'">В каталог →</button>
         </div>
     </section>
 
-    <section class="info-panel" id="infoPanel" style="display: none;">
+    <section class="about-us-section">
         <div class="container">
-            <div class="info-card" id="infoCard"></div>
-        </div>
-    </section>
-
-    <section class="categories">
-        <div class="container">
-            <h2 class="section-title" id="categoriesTitle">Категории</h2>
-            <div class="category-grid">
-                <div class="category-card" data-category="phones"><i class="fas fa-mobile-alt"></i><h3 id="catPhones">Смартфоны</h3></div>
-                <div class="category-card" data-category="laptops"><i class="fas fa-laptop"></i><h3 id="catLaptops">Ноутбуки</h3></div>
-                <div class="category-card" data-category="tvs"><i class="fas fa-tv"></i><h3 id="catTvs">Телевизоры</h3></div>
-                <div class="category-card" data-category="kitchen"><i class="fas fa-kitchen-set"></i><h3 id="catKitchen">Кухня</h3></div>
-                <div class="category-card" data-category="appliances"><i class="fas fa-blender"></i><h3 id="catAppliances">Техника</h3></div>
-                <div class="category-card" data-category="eco"><i class="fas fa-leaf"></i><h3 id="catEco">Эко</h3></div>
+            <h2 class="section-title">Кто мы?</h2>
+            <div class="about-us-grid">
+                <div class="about-us-text">
+                    <p>Привет! Я <strong>Магомед</strong> — фронтенд-разработчик, который создаёт красивые и удобные интерфейсы. А это <strong>Рамазан</strong> — мой друг и талантливый бэкенд-разработчик, который строит надёжную серверную часть.</p>
+                    <p>Вместе мы решили создать <strong>MR Eco</strong> — магазин современной техники, где каждый найдёт то, что ему нужно. Я отвечаю за то, чтобы сайтом было приятно пользоваться, а Рамазан — чтобы всё работало быстро и без сбоев.</p>
+                    <p>Мы — команда из двух человек, которые любят своё дело. Фронтенд + бэкенд = идеальный тандем. Наша цель — сделать шопинг простым, удобным и надёжным.</p>
+                    <div class="team-highlight">
+                        <span class="team-badge">💻 Магомед — Frontend</span>
+                        <span class="team-badge">⚙️ Рамазан — Backend</span>
+                        <span class="team-badge">🚀 Вместе — Fullstack</span>
+                    </div>
+                </div>
+                <div class="about-us-emoji">
+                    <div class="emoji-grid">
+                        <div class="emoji-card">💻<span>Frontend</span></div>
+                        <div class="emoji-card">⚙️<span>Backend</span></div>
+                        <div class="emoji-card">🎨<span>UI/UX</span></div>
+                        <div class="emoji-card">🗄️<span>Database</span></div>
+                        <div class="emoji-card">📱<span>Mobile</span></div>
+                        <div class="emoji-card">🚀<span>DevOps</span></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="products" id="productsSection">
+    <section class="advantages-section">
         <div class="container">
-            <h2 class="section-title" id="productsTitle">Хиты продаж</h2>
-            <div class="products-grid" id="productsGrid"></div>
+            <h2 class="section-title">Почему выбирают нас?</h2>
+            <div class="advantages-grid">
+                <div class="advantage-card"><i class="fas fa-code"></i><h3>Современный стек</h3><p>React, Node.js, PostgreSQL</p></div>
+                <div class="advantage-card"><i class="fas fa-tachometer-alt"></i><h3>Быстрая работа</h3><p>Оптимизированный код</p></div>
+                <div class="advantage-card"><i class="fas fa-shield-alt"></i><h3>Безопасность</h3><p>Защита данных</p></div>
+                <div class="advantage-card"><i class="fas fa-headset"></i><h3>Поддержка 24/7</h3><p>Всегда на связи</p></div>
+            </div>
         </div>
     </section>
 
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo"><i class="fas fa-seedling"></i> MR Eco</div>
+                <div class="footer-logo"><i class="fas fa-microchip"></i> MR Eco</div>
                 <div class="footer-contacts">
                     <div class="contact-item"><i class="fas fa-envelope"></i><a href="mailto:catran12@yandex.ru">catran12@yandex.ru</a></div>
-                    <div class="contact-item"><i class="fas fa-phone-alt"></i><a href="tel:+79224270101">+7 922 427 01 01</a></div>
+                    <div class="contact-item"><i class="fab fa-telegram"></i><a href="https://t.me/magomed_frontend" target="_blank">@magomed_frontend</a></div>
+                    <div class="contact-item"><i class="fab fa-github"></i><a href="https://github.com/magomed" target="_blank">github.com/magomed</a></div>
                 </div>
-                <div class="socials">
-                    <a href="https://instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://tiktok.com/" target="_blank"><i class="fab fa-tiktok"></i></a>
-                    <a href="https://telegram.org/" target="_blank"><i class="fab fa-telegram"></i></a>
+                <div class="footer-credits">
+                    <p>Сделано с ❤️ <strong>Магомедом</strong> и <strong>Рамазаном</strong></p>
+                    <p class="copyright">© 2026 MR Eco</p>
                 </div>
             </div>
-            <div class="footer-bottom"><p>© 2026 MR Eco — <span id="footerSlogan">техника с заботой о планете</span></p></div>
         </div>
     </footer>
 
     <div class="cart-modal" id="cartModal">
         <div class="cart-modal-content">
-            <div class="cart-modal-header"><h3 id="cartTitle">Корзина</h3><span class="cart-close" id="cartClose">&times;</span></div>
-            <div class="cart-modal-body" id="cartModalBody"><p id="cartEmpty">Корзина пуста</p></div>
-            <div class="cart-modal-footer"><button class="btn-primary" id="checkoutBtn" data-i18n="checkout">Оформить заказ</button></div>
+            <div class="cart-modal-header"><h3>Корзина</h3><span class="cart-close" id="cartClose">&times;</span></div>
+            <div class="cart-modal-body" id="cartModalBody"><p>Корзина пуста</p></div>
+            <div class="cart-modal-footer"><button class="btn-primary" id="checkoutBtnModal">Оформить заказ</button></div>
         </div>
     </div>
+
+    <style>
+        .about-us-section { padding: 60px 0; background: #f8f9fa; }
+        .about-us-grid { display: grid; grid-template-columns: 1fr 0.8fr; gap: 50px; align-items: center; }
+        .about-us-text p { margin-bottom: 20px; line-height: 1.7; }
+        .team-highlight { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 25px; }
+        .team-badge { background: #e8f5e9; padding: 8px 20px; border-radius: 40px; font-weight: 600; color: #2e7d32; }
+        .emoji-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; text-align: center; }
+        .emoji-card { padding: 15px; background: white; border-radius: 20px; font-size: 2rem; }
+        .emoji-card span { display: block; font-size: 0.8rem; margin-top: 8px; }
+        .advantages-section { padding: 60px 0; background: white; }
+        .advantages-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 25px; }
+        .advantage-card { background: #f5f7fa; padding: 30px 20px; text-align: center; border-radius: 24px; }
+        .advantage-card i { font-size: 2.5rem; color: #2e7d32; margin-bottom: 15px; }
+        .footer { background: #0f1a1f; color: #aaa; padding: 40px 0 24px; margin-top: 60px; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 30px; margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid #2a3a3f; }
+        .footer-logo { font-size: 1.4rem; font-weight: 700; color: #5a9e4b; }
+        .footer-contacts { display: flex; flex-direction: column; gap: 10px; }
+        .contact-item { display: flex; align-items: center; gap: 10px; }
+        .contact-item i { width: 25px; color: #5a9e4b; }
+        .contact-item a { color: #ddd; text-decoration: none; }
+        .contact-item a:hover { color: #7bc46e; }
+        .footer-credits { text-align: right; }
+        .footer-credits strong { color: #7bc46e; }
+        .copyright { font-size: 0.8rem; margin-top: 5px; color: #6c7a8a; }
+        .cart-modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000; justify-content:center; align-items:center; }
+        .cart-modal-content { background:white; border-radius:28px; width:90%; max-width:550px; max-height:80vh; overflow-y:auto; }
+        .cart-modal-header { display:flex; justify-content:space-between; padding:18px 24px; border-bottom:2px solid #e8f5e9; }
+        .cart-close { font-size:2rem; cursor:pointer; }
+        .cart-modal-body { padding:20px; }
+        .cart-item { display:flex; gap:10px; align-items:center; padding:10px 0; border-bottom:1px solid #eee; flex-wrap:wrap; }
+        .cart-total { text-align:right; margin-top:15px; padding-top:10px; border-top:2px solid #2e7d32; font-weight:800; }
+        .cart-modal-footer { padding:16px 24px; border-top:2px solid #e8f5e9; }
+        @media (max-width: 768px) {
+            .about-us-grid { grid-template-columns: 1fr; }
+            .advantages-grid { grid-template-columns: repeat(2,1fr); }
+            .footer-content { flex-direction: column; text-align: center; }
+            .footer-contacts { align-items: center; }
+            .footer-credits { text-align: center; }
+        }
+    </style>
 
     <script src="script.js"></script>
 </body>

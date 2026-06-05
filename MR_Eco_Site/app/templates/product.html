@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Товар | MR Eco</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo"><i class="fas fa-microchip"></i><span>MR Eco</span></div>
+            <nav class="nav">
+                <a href="index.html">Главная</a>
+                <a href="catalog.html">Каталог</a>
+                <a href="#" id="cartIconProduct"><i class="fas fa-shopping-cart"></i> Корзина <span id="cartCount">0</span></a>
+                <a href="profile.html">Профиль</a>
+                <a href="#" id="logoutBtnProduct">Выйти</a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="product-detail" id="productDetail">
+            <div class="product-image-large" id="productImage"></div>
+            <div class="product-info-detail">
+                <h1 id="productName"></h1>
+                <div class="product-price-large" id="productPrice"></div>
+                <div class="product-description" id="productDescription"></div>
+                <div class="product-specs-section">
+                    <h3>📋 Характеристики:</h3>
+                    <ul id="productSpecs" class="specs-list"></ul>
+                </div>
+                <button class="btn-primary" id="addToCartBtn">🛒 Добавить в корзину</button>
+                <button class="btn-secondary" onclick="window.location.href='catalog.html'">← Назад в каталог</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo"><i class="fas fa-microchip"></i> MR Eco</div>
+                <div class="footer-contacts">
+                    <div class="contact-item"><i class="fas fa-envelope"></i><a href="mailto:catran12@yandex.ru">catran12@yandex.ru</a></div>
+                    <div class="contact-item"><i class="fab fa-telegram"></i><a href="https://t.me/magomed_frontend" target="_blank">@magomed_frontend</a></div>
+                    <div class="contact-item"><i class="fab fa-github"></i><a href="https://github.com/magomed" target="_blank">github.com/magomed</a></div>
+                </div>
+                <div class="footer-credits">
+                    <p>Сделано с ❤️ <strong>Магомедом</strong> и <strong>Рамазаном</strong></p>
+                    <p class="copyright">© 2026 MR Eco</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-modal-content">
+            <div class="cart-modal-header"><h3>Корзина</h3><span class="cart-close" id="cartClose">&times;</span></div>
+            <div class="cart-modal-body" id="cartModalBody"><p>Корзина пуста</p></div>
+            <div class="cart-modal-footer"><button class="btn-primary" id="checkoutBtnModal">Оформить заказ</button></div>
+        </div>
+    </div>
+
+    <style>
+        .product-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 40px 0; background: white; border-radius: 32px; padding: 40px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .product-image-large { font-size: 10rem; text-align: center; background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border-radius: 24px; padding: 60px 40px; }
+        .product-price-large { font-size: 2rem; font-weight: 800; color: #2e7d32; margin: 20px 0; }
+        .specs-list { list-style: none; padding: 0; }
+        .specs-list li { padding: 8px 0; border-bottom: 1px solid #eee; }
+        .footer { background: #0f1a1f; color: #aaa; padding: 40px 0 24px; margin-top: 60px; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 30px; margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid #2a3a3f; }
+        .footer-logo { font-size: 1.4rem; font-weight: 700; color: #5a9e4b; }
+        .footer-contacts { display: flex; flex-direction: column; gap: 10px; }
+        .contact-item { display: flex; align-items: center; gap: 10px; }
+        .contact-item i { width: 25px; color: #5a9e4b; }
+        .contact-item a { color: #ddd; text-decoration: none; }
+        .contact-item a:hover { color: #7bc46e; }
+        .footer-credits { text-align: right; }
+        .footer-credits strong { color: #7bc46e; }
+        .copyright { font-size: 0.8rem; margin-top: 5px; color: #6c7a8a; }
+        .cart-modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000; justify-content:center; align-items:center; }
+        .cart-modal-content { background:white; border-radius:28px; width:90%; max-width:550px; max-height:80vh; overflow-y:auto; }
+        .cart-modal-header { display:flex; justify-content:space-between; padding:18px 24px; border-bottom:2px solid #e8f5e9; }
+        .cart-close { font-size:2rem; cursor:pointer; }
+        .cart-modal-body { padding:20px; }
+        .cart-item { display:flex; gap:10px; align-items:center; padding:10px 0; border-bottom:1px solid #eee; flex-wrap:wrap; }
+        .cart-total { text-align:right; margin-top:15px; padding-top:10px; border-top:2px solid #2e7d32; font-weight:800; }
+        .cart-modal-footer { padding:16px 24px; border-top:2px solid #e8f5e9; }
+        @media (max-width: 768px) { 
+            .product-detail { grid-template-columns: 1fr; padding: 20px; } 
+            .footer-content { flex-direction: column; text-align: center; }
+            .footer-contacts { align-items: center; }
+            .footer-credits { text-align: center; }
+        }
+    </style>
+
+    <script src="script.js"></script>
+</body>
+</html>

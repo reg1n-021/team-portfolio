@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ оформлен | MR Eco</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo"><i class="fas fa-seedling"></i><span>MR Eco</span></div>
+            <nav class="nav">
+                <a href="index.html">Главная</a>
+                <a href="catalog.html">Каталог</a>
+                <a href="cart.html">Корзина</a>
+                <a href="profile.html" id="profileLink">Профиль</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="success-container">
+            <div class="success-icon">✅</div>
+            <h1>Спасибо за заказ!</h1>
+            <p>Номер вашего заказа: <strong id="orderNumber"></strong></p>
+            <p>Мы свяжемся с вами в ближайшее время для подтверждения.</p>
+            <p>Вы можете отслеживать статус заказа в <a href="profile.html">личном кабинете</a>.</p>
+            
+            <div class="success-buttons">
+                <button class="btn-primary" onclick="window.location.href='index.html'">На главную</button>
+                <button class="btn-secondary" onclick="window.location.href='profile.html'">Мои заказы</button>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .success-container {
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            border-radius: 32px;
+            margin: 40px auto;
+            max-width: 600px;
+        }
+        .success-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+        .success-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+    </style>
+
+    <script src="script.js"></script>
+</body>
+</html>
