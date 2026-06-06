@@ -91,7 +91,7 @@ function openCartModal() {
 }
 
 function addToCart(productId) {
-    if (!currentUser) { showNotification('Сначала войдите в аккаунт!', 'info'); window.location.href = 'login.html'; return; }
+    if (!currentUser) { showNotification('Сначала войдите в аккаунт!', 'info'); window.location.href = '/login'; return; }
     const product = productsData.find(p => p.id === productId);
     if (!product) return;
     const existing = cart.find(i => i.id === productId);
@@ -139,7 +139,7 @@ function renderCatalog() {
     const paginated = filtered.slice(start, start + 6);
     
     grid.innerHTML = paginated.map(p => `
-        <div class="product-card" onclick="window.location.href='product.html?id=${p.id}'">
+        <div class="product-card" onclick="window.location.href='/product?id=${p.id}'">
             <div class="product-img">${p.icon}</div>
             <div class="product-info">
                 ${p.tag ? `<span class="product-tag">${p.tag}</span>` : ''}
@@ -177,7 +177,7 @@ function renderProductPage() {
 }
 
 function renderProfile() {
-    if (!currentUser) { window.location.href = 'login.html'; return; }
+    if (!currentUser) { window.location.href = '/login'; return; }
     document.getElementById('profileLogin').textContent = currentUser.login;
     document.getElementById('profilePhone').textContent = currentUser.phone;
     const regDate = currentUser.registerDate ? new Date(currentUser.registerDate) : new Date();
@@ -188,7 +188,7 @@ function renderProfile() {
     const container = document.getElementById('userOrders');
     if (container) {
         if (userOrders.length === 0) {
-            container.innerHTML = `<div class="empty-orders"><i class="fas fa-shopping-bag"></i><p>У вас пока нет заказов</p><a href="catalog.html" class="shop-link">Перейти в каталог →</a></div>`;
+            container.innerHTML = `<div class="empty-orders"><i class="fas fa-shopping-bag"></i><p>У вас пока нет заказов</p><a href="/catalog" class="shop-link">Перейти в каталог →</a></div>`;
         } else {
             container.innerHTML = userOrders.map(o => `
                 <div class="order-card">
@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Кнопки выхода
     document.querySelectorAll('#logoutBtnMain, #logoutBtnCatalog, #logoutBtnProduct, #logoutBtnProfile').forEach(btn => {
-        if (btn) btn.onclick = (e) => { e.preventDefault(); currentUser = null; localStorage.removeItem('currentUser'); window.location.href = 'index.html'; };
+        if (btn) btn.onclick = (e) => { e.preventDefault(); currentUser = null; localStorage.removeItem('currentUser'); window.location.href = '/'; };
     });
     
     // Кнопки корзины в навигации
@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentUser = { ...user };
                 delete currentUser.password;
                 saveData();
-                window.location.href = user.isAdmin ? 'admin.html' : 'index.html';
+                window.location.href = user.isAdmin ? '/admin' : '/';
             } else alert('Неверный логин или пароль');
         };
     }
@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 users.push({ id: Date.now(), login, password: pwd, phone, isAdmin: false, registerDate: new Date().toISOString() });
                 saveData();
                 alert('Регистрация успешна! Теперь войдите.');
-                window.location.href = 'login.html';
+                window.location.href = '/login';
             }
         };
     }
