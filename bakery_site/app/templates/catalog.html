@@ -1,54 +1,95 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Каталог - Пекарня</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Каталог - MR-Bakery</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        html, body { height: 100%; margin: 0; display: flex; flex-direction: column; }
+        body { padding-top: 70px; }
+        .content { flex: 1; }
+        .navbar-brand { font-size: 28px; font-weight: bold; color: #f7b70b !important; }
+        .btn-order { background: #f7b70b; color: white; padding: 8px 25px; text-decoration: none; display: inline-block; border-radius: 0; }
+        .product-card { text-align: center; padding: 20px; background: white; margin-bottom: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .product-card img { width: 100%; height: 180px; object-fit: cover; margin-bottom: 15px; }
+        .section { padding: 70px 0; }
+        .footer { background: #0a0a0a; color: #aaa; padding: 60px 0 40px; margin-top: 50px; }
+        .footer h5 { color: #f7b70b; font-weight: bold; margin-bottom: 25px; font-size: 18px; }
+        .footer p { margin-bottom: 12px; font-size: 14px; }
+        .footer i { margin-right: 10px; color: #f7b70b; }
+        .footer .footer-col { text-align: center; }
+        .footer-bottom { text-align: center; padding-top: 40px; margin-top: 40px; border-top: 1px solid #222; }
+    </style>
 </head>
 <body>
-
+<div class="content">
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="{{ url_for('index') }}">COMPANY 24</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <a class="navbar-brand" href="/">MR-Bakery</a>
+        <div class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Главная</a></li>
-                <!-- КНОПКА КАТАЛОГ УБРАНА -->
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}#reviews">Отзывы</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}#contacts">Контакты</a></li>
+                <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
+                <li class="nav-item"><a class="nav-link" href="/catalog">Каталог</a></li>
+                <li class="nav-item"><a class="nav-link" href="/reviews">Отзывы</a></li>
             </ul>
         </div>
     </div>
 </nav>
-
 <section class="section">
     <div class="container">
-        <div class="section-title">
-            <h1>Наш ассортимент</h1>
-            <p>Вся выпечка, которую вы можете заказать</p>
-        </div>
+        <h1 class="text-center mb-5">Наша выпечка</h1>
         <div class="row">
-            {% for product in products %}
             <div class="col-md-4">
                 <div class="product-card">
-                    <h3>{{ product.name }}</h3>
-                    <p>{{ product.price }} ₽ / {{ product.weight }}</p>
-                    <a href="{{ url_for('product', product_id=product.id) }}" class="btn-order-small">Подробнее</a>
+                    <img src="https://thfvnext.bing.com/th/id/OIP.LDZdeARVswWmTfLzzqj5QQHaE8?w=256&h=180&c=7&r=0&o=7&cb=thfvnextfalcon2&dpr=1.3&pid=1.7&rm=3" alt="Багет французский">
+                    <h3>Багет французский</h3>
+                    <p class="h4 text-warning">120 ₽</p>
+                    <p>300г</p>
+                    <a href="/order" class="btn-order">Заказать</a>
                 </div>
             </div>
-            {% endfor %}
+            <div class="col-md-4">
+                <div class="product-card">
+                    <img src="https://thfvnext.bing.com/th/id/OIP.8AcKI7Xa1KUlkNhAd62LDwHaHa?w=181&h=181&c=7&r=0&o=7&cb=thfvnextfalcon2&dpr=1.3&pid=1.7&rm=3" alt="Круассан с шоколадом">
+                    <h3>Круассан с шоколадом</h3>
+                    <p class="h4 text-warning">85 ₽</p>
+                    <p>110г</p>
+                    <a href="/order" class="btn-order">Заказать</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="product-card">
+                    <img src="https://thfvnext.bing.com/th/id/OIP.lNqowYsQtRSE6ef0xt_gYQHaE8?w=256&h=180&c=7&r=0&o=7&cb=thfvnextfalcon2&dpr=1.3&pid=1.7&rm=3" alt="Бородинский хлеб">
+                    <h3>Бородинский хлеб</h3>
+                    <p class="h4 text-warning">95 ₽</p>
+                    <p>500г</p>
+                    <a href="/order" class="btn-order">Заказать</a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
+</div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<footer class="footer">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4 footer-col">
+                <h5>MR-Bakery</h5>
+                <p>Свежая выпечка с любовью с 2010 года</p>
+                <p>Ежедневно с 8:00 до 20:00</p>
+            </div>
+            <div class="col-md-4 footer-col">
+                <h5>Контакты</h5>
+                <p><i class="fas fa-phone"></i> +7 922 427-01-01</p>
+                <p><i class="fas fa-envelope"></i> catran12@yandex.ru</p>
+                <p><i class="fas fa-map-marker-alt"></i>  г. Махачкала, ул. Имама Шамиля, 24</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 MR-Bakery. Все права защищены.</p>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
