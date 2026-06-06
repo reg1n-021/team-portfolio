@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Заказ - MR-Bakery</title>
+    <title>Отзывы - MR-Bakery</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -9,8 +9,21 @@
         body { padding-top: 70px; }
         .content { flex: 1; }
         .navbar-brand { font-size: 28px; font-weight: bold; color: #f7b70b !important; }
-        .btn-order { background: #f7b70b; color: white; padding: 12px 35px; border: none; font-weight: bold; border-radius: 0; }
-        .section { padding: 70px 0; }
+        .review-card { 
+            background: white; 
+            padding: 30px; 
+            margin-bottom: 30px; 
+            border-left: 5px solid #f7b70b; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            border-radius: 12px;
+            transition: transform 0.3s;
+            height: 100%;
+        }
+        .review-card:hover { transform: translateY(-5px); }
+        .stars { color: #f7b70b; font-size: 20px; letter-spacing: 3px; margin-top: 15px; }
+        .review-text { font-size: 16px; line-height: 1.7; color: #333; }
+        .review-name { font-size: 18px; font-weight: bold; margin-top: 15px; color: #f7b70b; }
+        .section { padding: 70px 0; background: #fef9e6; }
         .footer { background: #0a0a0a; color: #aaa; padding: 60px 0 40px; margin-top: 50px; }
         .footer h5 { color: #f7b70b; font-weight: bold; margin-bottom: 25px; font-size: 18px; }
         .footer p { margin-bottom: 12px; font-size: 14px; }
@@ -28,23 +41,26 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
                 <li class="nav-item"><a class="nav-link" href="/catalog">Каталог</a></li>
-                <li class="nav-item"><a class="nav-link" href="/reviews">Отзывы</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/reviews">Отзывы</a></li>
             </ul>
         </div>
     </div>
 </nav>
 <section class="section">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <h2 class="text-center mb-4">Оформление заказа</h2>
-                <form>
-                    <input type="text" class="form-control mb-3" placeholder="Ваше имя">
-                    <input type="tel" class="form-control mb-3" placeholder="Телефон">
-                    <textarea class="form-control mb-3" rows="3" placeholder="Что заказываете?"></textarea>
-                    <button class="btn-order w-100">Отправить заказ</button>
-                </form>
+        <h1 class="text-center mb-5">Наши отзывы</h1>
+        <div class="row">
+            {% for r in reviews %}
+            <div class="col-md-4">
+                <div class="review-card">
+                    <p class="review-text">“{{ r.text }}”</p>
+                    <div class="review-name">{{ r.name }}</div>
+                    <div class="stars">
+                        {% for i in range(r.stars) %}★{% endfor %}
+                    </div>
+                </div>
             </div>
+            {% endfor %}
         </div>
     </div>
 </section>
@@ -55,18 +71,18 @@
         <div class="row justify-content-center">
             <div class="col-md-4 footer-col">
                 <h5>MR-Bakery</h5>
-                <p>Свежая выпечка с любовью с 2010 года</p>
+                <p>Свежая выпечка с любовью</p>
                 <p>Ежедневно с 8:00 до 20:00</p>
             </div>
             <div class="col-md-4 footer-col">
                 <h5>Контакты</h5>
                 <p><i class="fas fa-phone"></i> +7 922 427-01-01</p>
                 <p><i class="fas fa-envelope"></i> catran12@yandex.ru</p>
-                <p><i class="fas fa-map-marker-alt"></i>  г. Махачкала, ул. Имама Шамиля, 24</p>
+                <p><i class="fas fa-map-marker-alt"></i> г. Махачкала, ул. Имама Шамиля, 24</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 MR-Bakery. Все права защищены.</p>
+            <p>&copy; 2026 MR-Bakery</p>
         </div>
     </div>
 </footer>

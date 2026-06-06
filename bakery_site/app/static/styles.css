@@ -1,22 +1,41 @@
 :root {
     --primary: #f7b70b;
+    --dark: #1a1a1a;
+    --light: #fef9e6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
     font-family: 'Open Sans', sans-serif;
     padding-top: 70px;
+    background-color: var(--light);
+    color: #333;
 }
 
-/* Шапка */
+/* ШАПКА */
 .navbar {
     background: white !important;
     box-shadow: 0 2px 15px rgba(0,0,0,0.1);
     transition: all 0.3s;
+    padding: 0.8rem 0;
 }
 
 .navbar-scrolled {
-    background: rgba(255,255,255,0.98) !important;
+    background: white !important;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--primary) !important;
 }
 
 .nav-link {
@@ -25,18 +44,19 @@ body {
     text-transform: uppercase;
     margin: 0 10px;
     transition: 0.3s;
+    color: #333 !important;
 }
 
 .nav-link:hover, .nav-link.active {
     color: var(--primary) !important;
 }
 
-/* Герой */
+/* ГЕРОЙ С ТВОЕЙ КАРТИНКОЙ */
 .hero-section {
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://cdn-ru.bitrix24.ru/b37893456/landing/45c/45c8336d107f82317d563e5e91985772/bg_1x.jpg');
     background-size: cover;
     background-position: center;
-    min-height: 90vh;
+    min-height: 85vh;
     display: flex;
     align-items: center;
     text-align: center;
@@ -51,21 +71,42 @@ body {
     margin-bottom: 20px;
 }
 
-.btn-order, .btn-order-small {
+.hero-text {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 30px;
+}
+
+/* ПРЯМОУГОЛЬНЫЕ КНОПКИ */
+.btn-order, .btn-order-small, .btn-outline-order {
     display: inline-block;
     background: var(--primary);
     color: white;
-    padding: 15px 40px;
-    border-radius: 50px;
+    padding: 12px 35px;
+    border-radius: 0;
     text-decoration: none;
     font-weight: 700;
     transition: 0.3s;
     border: none;
     cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .btn-order-small {
-    padding: 12px 30px;
+    padding: 8px 25px;
+    font-size: 0.9rem;
+}
+
+.btn-outline-order {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-outline-order:hover {
+    background: var(--primary);
+    color: white;
 }
 
 .btn-order:hover, .btn-order-small:hover {
@@ -74,7 +115,7 @@ body {
     text-decoration: none;
 }
 
-/* Секции */
+/* СЕКЦИИ */
 .section {
     padding: 80px 0;
 }
@@ -87,23 +128,20 @@ body {
 .section-title h2 {
     font-family: 'Oswald', sans-serif;
     font-size: 42px;
+    font-weight: 600;
+    margin-bottom: 10px;
 }
 
 .bg-light {
-    background: #f8f9fa;
+    background: #fff9ef;
 }
 
-/* Карточки */
-.feature-box, .product-card, .price-card, .review-card {
-    transition: 0.3s;
-}
-
+/* КАРТОЧКИ ПРЕИМУЩЕСТВ */
 .feature-box {
     text-align: center;
     padding: 30px 20px;
-    border: 1px solid #eee;
     background: white;
-    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
     height: 100%;
 }
 
@@ -113,91 +151,127 @@ body {
     margin-bottom: 20px;
 }
 
+.feature-box h4 {
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+/* КАРТОЧКИ ТОВАРОВ */
 .product-card {
     text-align: center;
     background: white;
-    border-radius: 10px;
-    overflow: hidden;
+    padding: 25px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.08);
     height: 100%;
+    transition: transform 0.3s;
 }
 
-.product-card img {
-    width: 100%;
-    padding: 20px;
+.product-card:hover {
+    transform: translateY(-5px);
 }
 
-.price-card {
-    background: rgba(255,255,255,0.1);
-    padding: 40px 20px;
-    border-radius: 15px;
-    text-align: center;
-    height: 100%;
-}
-
-.price-card.popular {
-    background: var(--primary);
-    transform: scale(1.05);
-}
-
-.price {
-    font-size: 36px;
+.product-card h3 {
+    font-size: 1.3rem;
     font-weight: 700;
-    margin: 20px 0;
+    margin: 15px 0 10px;
 }
 
+.product-card p {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+/* КАРТОЧКИ ОТЗЫВОВ */
 .review-card {
     background: white;
-    padding: 30px;
-    border-radius: 12px;
+    padding: 25px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.05);
     height: 100%;
-    display: flex;
-    flex-direction: column;
+    border-left: 4px solid var(--primary);
 }
 
 .review-card p {
     font-style: italic;
-    flex-grow: 1;
 }
 
 .review-author {
-    text-align: right;
     font-weight: 700;
     margin-top: 15px;
     padding-top: 10px;
     border-top: 1px solid #eee;
 }
 
-/* Форма */
-.form-control {
-    border-radius: 30px;
-    padding: 12px 20px;
+.review-stars {
+    color: var(--primary);
+    margin-top: 8px;
+}
+
+/* ПОДВАЛ - ЧЕРНЫЙ, МЕНЬШЕ, ПОНИЖЕ */
+.footer {
+    background: #0a0a0a;
+    color: #aaa;
+    padding: 30px 0 20px;
+    margin-top: 0;
+}
+
+.footer h5 {
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.footer p {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.footer a {
+    color: #aaa;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: var(--primary);
+}
+
+.footer .social-icons i {
+    font-size: 1.3rem;
+    margin-right: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.footer .social-icons i:hover {
+    color: var(--primary);
+}
+
+/* МОДАЛКА */
+.modal-content {
+    border-radius: 0;
+}
+
+.modal-header {
+    background: var(--primary);
+    color: white;
+    border-bottom: none;
+}
+
+.modal-header .close {
+    color: white;
+}
+
+.quick-order-form .form-control {
+    border-radius: 0;
+    padding: 12px;
     margin-bottom: 15px;
 }
 
-/* Адаптив */
+/* АДАПТИВ */
 @media (max-width: 768px) {
     .hero-section h1 { font-size: 36px; }
     .section-title h2 { font-size: 32px; }
-    .price-card.popular { transform: none; }
-}
-/* Рейтинг отзывов */
-.review-stars {
-    color: #f7b70b;
-    margin-top: 8px;
-    font-size: 14px;
-}
-
-/* Картинки в карточках */
-.product-card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-}
-
-/* Детальная карточка */
-.product-detail img {
-    width: 100%;
-    border-radius: 15px;
+    .section { padding: 50px 0; }
 }
