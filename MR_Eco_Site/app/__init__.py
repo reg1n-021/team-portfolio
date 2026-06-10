@@ -9,6 +9,6 @@ def create_app():
     db.init_app(app_var)
     
     from app.main_routes import bp
-    app_var.register_blueprint(bp)
+    app_var.register_blueprint(bp)z
     
     return app_var

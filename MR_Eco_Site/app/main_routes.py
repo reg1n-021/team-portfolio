@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, abort
 from models import db, User, Products
 
 bp = Blueprint('main', __name__)
@@ -13,6 +13,11 @@ def catalog():
     products = Products.query.all()
     return render_template('catalog.html', products=products)
 
+@bp.route('/product/<int:product_id>')
+def product(product_id):
+    product = Products.query.get_or_404(product_id)
+    return render_template('product.html', product=product)
+
 @bp.route('/admin')
 def admin():
     return render_template('admin.html')
@@ -21,9 +26,9 @@ def admin():
 def cart():
     return render_template('cart.html')
 
-@bp.route('/chekout')
-def chekout():
-    return render_template('chekout.html')
+@bp.route('/checkout')
+def checkout():
+    return render_template('checkout.html')
 
 @bp.route('/login')
 def login():
@@ -41,21 +46,12 @@ def profile():
 def register():
     return render_template('register.html')
 
-@bp.route('/product')
-def product():
-    return render_template('product.html')
-
 @bp.route('/check-db')
 def check_db():
     try:
-        # Пытаемся создать тестового пользователя
-        test_user = User(login="test", password_hash="hash", phone="123", is_admin=False)
-        db.session.add(test_user)
-        db.session.commit()
-        
-        # Считаем сколько пользователей
-        count = User.query.count()
-        
-        return f"✅ БД работает! Создан тестовый пользователь. Всего пользователей: {count}"
+        count = Products.query.count()
+        products = Products.query.all()
+        product_list = "<br>".join([f"{p.id}: {p.name} - {p.price}₽" for p in products])
+        return f"✅ БД работает! Всего товаров: {count}<br><br>Список товаров:<br>{product_list}"
     except Exception as e:
         return f"❌ Ошибка БД: {str(e)}"

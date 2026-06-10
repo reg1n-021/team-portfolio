@@ -16,31 +16,25 @@
                 <span>MR Eco</span>
             </div>
             <nav class="nav">
-                <a href="{{ url_for('main.index') }}">Главная</a>
-                <a href="{{ url_for('main.catalog') }}">Каталог</a>
-                <a href="#" id="cartIconMain"><i class="fas fa-shopping-cart"></i> Корзина <span id="cartCount">0</span></a>
-                <a href="{{ url_for('main.profile') }}">Профиль</a>
-                <a href="#" id="logoutBtnMain">Выйти</a>
-
+                <a href="{{ url_for('index') }}">Главная</a>
+                <a href="{{ url_for('catalog') }}">Каталог</a>
+                <a href="javascript:void(0)" id="cartIconMain"><i class="fas fa-shopping-cart"></i> Корзина <span id="cartCount">0</span></a>
+                <a href="{{ url_for('profile') }}">Профиль</a>
+                <a href="javascript:void(0)" id="logoutBtnMain">Выйти</a>
             </nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
         </div>
     </header>
 
-    <!-- Hero секция -->
     <section class="hero" style="background-image: url('https://th.bing.com/th/id/OIP.uucFGCgbG20DFFezABgKbgHaE7?r=0&o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3'); background-size: cover; background-position: center; position: relative;">
         <div style="position: absolute; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.55);"></div>
         <div class="container hero-content" style="position: relative; z-index: 2;">
             <h1 style="color: white;">Техника, которая <span class="highlight" style="color: #f57c00;">работает на вас</span></h1>
             <p style="color: white;">Ноутбуки, телефоны, телевизоры, чайники и кухонные принадлежности. Доставка за 1 день.</p>
-            <button class="btn-primary" onclick="location.href='{{ url_for('main.catalog') }}'">
-    В каталог →
-</button>
-
+            <a href="{{ url_for('catalog') }}" class="btn-primary">В каталог →</a>
         </div>
     </section>
 
-    <!-- СЕКЦИЯ О НАС -->
     <section class="about-us-section">
         <div class="container">
             <h2 class="section-title">Кто мы?</h2>
@@ -69,31 +63,14 @@
         </div>
     </section>
 
-    <!-- Секция преимуществ -->
     <section class="advantages-section">
         <div class="container">
             <h2 class="section-title">Почему выбирают нас?</h2>
             <div class="advantages-grid">
-                <div class="advantage-card">
-                    <i class="fas fa-code"></i>
-                    <h3>Современный стек</h3>
-                    <p>React, Node.js, PostgreSQL</p>
-                </div>
-                <div class="advantage-card">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <h3>Быстрая работа</h3>
-                    <p>Оптимизированный код</p>
-                </div>
-                <div class="advantage-card">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>Безопасность</h3>
-                    <p>Защита данных</p>
-                </div>
-                <div class="advantage-card">
-                    <i class="fas fa-headset"></i>
-                    <h3>Поддержка 24/7</h3>
-                    <p>Всегда на связи</p>
-                </div>
+                <div class="advantage-card"><i class="fas fa-code"></i><h3>Современный стек</h3><p>React, Node.js, PostgreSQL</p></div>
+                <div class="advantage-card"><i class="fas fa-tachometer-alt"></i><h3>Быстрая работа</h3><p>Оптимизированный код</p></div>
+                <div class="advantage-card"><i class="fas fa-shield-alt"></i><h3>Безопасность</h3><p>Защита данных</p></div>
+                <div class="advantage-card"><i class="fas fa-headset"></i><h3>Поддержка 24/7</h3><p>Всегда на связи</p></div>
             </div>
         </div>
     </section>
@@ -123,7 +100,6 @@
         </div>
     </div>
 
-
     <style>
         .about-us-section { padding: 60px 0; background: #f8f9fa; }
         .about-us-grid { display: grid; grid-template-columns: 1fr 0.8fr; gap: 50px; align-items: center; }
@@ -148,7 +124,7 @@
         .footer-credits { text-align: right; }
         .footer-credits strong { color: #7bc46e; }
         .copyright { font-size: 0.8rem; margin-top: 5px; color: #6c7a8a; }
-        .cart-modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000; justify-content:center; align-items:center; }
+        .cart-modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000; justify-content:center; align-items:center; backdrop-filter: blur(4px); }
         .cart-modal-content { background:white; border-radius:28px; width:90%; max-width:550px; max-height:80vh; overflow-y:auto; }
         .cart-modal-header { display:flex; justify-content:space-between; padding:18px 24px; border-bottom:2px solid #e8f5e9; }
         .cart-close { font-size:2rem; cursor:pointer; }
