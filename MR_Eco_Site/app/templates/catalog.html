@@ -13,10 +13,10 @@
         <div class="container header-container">
             <div class="logo"><i class="fas fa-microchip"></i><span>MR Eco</span></div>
             <nav class="nav">
-                <a href="{{ url_for('index') }}">Главная</a>
-                <a href="{{ url_for('catalog') }}" class="active">Каталог</a>
+                <a href="{{ url_for('main.index') }}">Главная</a>
+                <a href="{{ url_for('main.catalog') }}" class="active">Каталог</a>
                 <a href="javascript:void(0)" id="cartIconCatalog"><i class="fas fa-shopping-cart"></i> Корзина <span id="cartCount">0</span></a>
-                <a href="{{ url_for('profile') }}">Профиль</a>
+                <a href="{{ url_for('main.profile') }}">Профиль</a>
                 <a href="javascript:void(0)" id="logoutBtnCatalog">Выйти</a>
             </nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
@@ -72,9 +72,6 @@
             <div class="cart-modal-footer"><button class="btn-primary" id="checkoutBtnModal">Оформить заказ</button></div>
         </div>
     </div>
-
-<<<<<<< HEAD
-=======
     <style>
         .filters-panel { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 30px; padding: 20px; background: white; border-radius: 24px; }
         .search-input { flex: 1; min-width: 200px; padding: 12px 16px; border: 1px solid #ddd; border-radius: 40px; }
@@ -122,8 +119,6 @@
             .footer-credits { text-align: center; }
         }
     </style>
-
->>>>>>> fc6b468f929f06110b845b5ae4dbeb8ce8db03db
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
