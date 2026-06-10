@@ -11,6 +11,7 @@ def index():
 
 @bp.route('/catalog')
 def catalog():
+    
     return render_template('catalog.html')
 
 @bp.route('/admin')
