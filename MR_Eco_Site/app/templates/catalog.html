@@ -13,10 +13,10 @@
         <div class="container header-container">
             <div class="logo"><i class="fas fa-microchip"></i><span>MR Eco</span></div>
             <nav class="nav">
-                <a href="{{ url_for('index') }}">Главная</a>
-                <a href="{{ url_for('catalog') }}" class="active">Каталог</a>
+                <a href="{{ url_for('main.index') }}">Главная</a>
+                <a href="{{ url_for('main.catalog') }}" class="active">Каталог</a>
                 <a href="javascript:void(0)" id="cartIconCatalog"><i class="fas fa-shopping-cart"></i> Корзина <span id="cartCount">0</span></a>
-                <a href="{{ url_for('profile') }}">Профиль</a>
+                <a href="{{ url_for('main.profile') }}">Профиль</a>
                 <a href="javascript:void(0)" id="logoutBtnCatalog">Выйти</a>
             </nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>

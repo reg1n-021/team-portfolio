@@ -16,10 +16,10 @@
                 <span>MR Eco</span>
             </div>
             <nav class="nav">
-                <a href="{{ url_for('index') }}">Главная</a>
-                <a href="{{ url_for('catalog') }}">Каталог</a>
+                <a href="{{ url_for('main.index') }}">Главная</a>
+                <a href="{{ url_for('main.catalog') }}">Каталог</a>
                 <a href="javascript:void(0)" id="cartIconMain"><i class="fas fa-shopping-cart"></i> Корзина <span id="cartCount">0</span></a>
-                <a href="{{ url_for('profile') }}">Профиль</a>
+                <a href="{{ url_for('main.profile') }}">Профиль</a>
                 <a href="javascript:void(0)" id="logoutBtnMain">Выйти</a>
             </nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
@@ -31,7 +31,7 @@
         <div class="container hero-content" style="position: relative; z-index: 2;">
             <h1 style="color: white;">Техника, которая <span class="highlight" style="color: #f57c00;">работает на вас</span></h1>
             <p style="color: white;">Ноутбуки, телефоны, телевизоры, чайники и кухонные принадлежности. Доставка за 1 день.</p>
-            <a href="{{ url_for('catalog') }}" class="btn-primary">В каталог →</a>
+            <a href="{{ url_for('main.catalog') }}" class="btn-primary">В каталог →</a>
         </div>
     </section>
 
