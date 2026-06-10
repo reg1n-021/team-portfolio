@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template
-from models import db, User
-from datetime import datetime
+from models import db, User, Products
 
 bp = Blueprint('main', __name__)
 
@@ -11,8 +10,8 @@ def index():
 
 @bp.route('/catalog')
 def catalog():
-    
-    return render_template('catalog.html')
+    products = Products.query.all()
+    return render_template('catalog.html', products=products)
 
 @bp.route('/admin')
 def admin():
