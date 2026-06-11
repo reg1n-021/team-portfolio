@@ -1,5 +1,7 @@
-from flask import Blueprint, render_template, request, abort
+from flask import Blueprint, request, redirect, url_for, flash, render_template
 from models import db, User, Products
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_session import session
 
 bp = Blueprint('main', __name__)
 
@@ -30,8 +32,22 @@ def cart():
 def checkout():
     return render_template('checkout.html')
 
-@bp.route('/login')
+@bp.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        login = request.form['login']
+        password = request.form['password']
+        
+        user = User.query.filter_by(login=login).first()
+        
+        if user and check_password_hash(user.password_hash, password):
+            # сохраняем пользователя в сессии
+            session['user_id'] = user.id
+            flash('Вы вошли')
+            return redirect(url_for('main.index'))
+        else:
+            flash('Неверный логин или пароль')
+    
     return render_template('login.html')
 
 @bp.route('/order_success')
@@ -42,8 +58,27 @@ def order_success():
 def profile():
     return render_template('profile.html')
 
-@bp.route('/register')
+@bp.route('/register', methods=['GET', 'POST'])
 def register():
+    if request.method == 'POST':
+        login = request.form['login']
+        password = request.form['password']
+        phone = request.form['phone']
+        
+        # проверяем, нет ли такого пользователя
+        if User.query.filter_by(login=login).first():
+            flash('Логин уже занят')
+            return redirect(url_for('main.register'))
+        
+        # создаём нового пользователя
+        hashed = generate_password_hash(password)
+        user = User(login=login, password_hash=hashed, phone=phone)
+        db.session.add(user)
+        db.session.commit()
+        
+        flash('Регистрация успешна! Теперь войдите')
+        return redirect(url_for('main.login'))
+    
     return render_template('register.html')
 
 @bp.route('/check-db')
@@ -55,3 +90,9 @@ def check_db():
         return f"✅ БД работает! Всего товаров: {count}<br><br>Список товаров:<br>{product_list}"
     except Exception as e:
         return f"❌ Ошибка БД: {str(e)}"
+    
+@bp.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    flash('Вы вышли')
+    return redirect(url_for('main.index'))
