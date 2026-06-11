@@ -1,7 +1,8 @@
 from flask import Blueprint, request, redirect, url_for, flash, render_template
 from models import db, User, Products
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_session import session
+from flask import session
+from app.forms import RegistrationForm, LoginForm
 
 bp = Blueprint('main', __name__)
 
@@ -34,9 +35,10 @@ def checkout():
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        login = request.form['login']
-        password = request.form['password']
+    form = LoginForm()
+    if form.validate_on_submit():
+        login = form.login.data
+        password = form.password.data
         
         user = User.query.filter_by(login=login).first()
         
@@ -60,10 +62,11 @@ def profile():
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == 'POST':
-        login = request.form['login']
-        password = request.form['password']
-        phone = request.form['phone']
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        login = form.login.data
+        password = form.password.data
+        phone = form.phone.data
         
         # проверяем, нет ли такого пользователя
         if User.query.filter_by(login=login).first():

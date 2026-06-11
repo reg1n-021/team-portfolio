@@ -1,15 +1,78 @@
-<!doctype html>
-<html>
-    <head>
-      {% if title %}
-      <title>{{ title }} - Microblog</title>
-      {% else %}
-      <title>Welcome to Microblog</title>
-      {% endif %}
-    </head>
-    <body>
-        <div>Microblog: <a href="/index">Home</a></div>
-        <hr>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MR Eco | Современная техника{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- ========== ХЕДЕР ========== -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-microchip"></i>
+                <span>MR Eco</span>
+            </div>
+            <nav class="nav">
+                <a href="{{ url_for('main.index') }}">Главная</a>
+                <a href="{{ url_for('main.catalog') }}">Каталог</a>
+                <a href="javascript:void(0)" id="cartIconMain"><i class="fas fa-shopping-cart"></i> Корзина <span id="cartCount">0</span></a>
+                <a href="{{ url_for('main.profile') }}">Профиль</a>
+                {% if current_user %}
+                    <a href="javascript:void(0)" id="logoutBtnMain">Выйти</a>
+                {% else %}
+                    <a href="{{ url_for('main.login') }}">Войти</a>
+                {% endif %}
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- ========== ОСНОВНОЙ КОНТЕНТ ========== -->
+    <main>
         {% block content %}{% endblock %}
-    </body>
+    </main>
+
+    <!-- ========== ФУТЕР ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo"><i class="fas fa-microchip"></i> MR Eco</div>
+                <div class="footer-contacts">
+                    <div class="contact-item"><i class="fas fa-envelope"></i><a href="mailto:catran12@yandex.ru">catran12@yandex.ru</a></div>
+                    <div class="contact-item"><i class="fab fa-telegram"></i><a href="https://t.me/magomed_frontend" target="_blank">@magomed_frontend</a></div>
+                    <div class="contact-item"><i class="fab fa-github"></i><a href="https://github.com/magomed" target="_blank">github.com/magomed</a></div>
+                </div>
+                <div class="footer-credits">
+                    <p>Сделано с ❤️ <strong>Магомедом</strong> и <strong>Рамазаном</strong></p>
+                    <p class="copyright">© 2026 MR Eco</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== МОДАЛКА КОРЗИНЫ ========== -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-modal-content">
+            <div class="cart-modal-header">
+                <h3><i class="fas fa-shopping-cart"></i> Корзина</h3>
+                <span class="cart-close" id="cartClose">&times;</span>
+            </div>
+            <div class="cart-modal-body" id="cartModalBody">
+                <p>Корзина пуста</p>
+            </div>
+            <div class="cart-modal-footer">
+                <button class="btn-primary" id="checkoutBtnModal">Оформить заказ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== СКРИПТЫ ========== -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
 </html>

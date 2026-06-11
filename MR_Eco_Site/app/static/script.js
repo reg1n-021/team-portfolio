@@ -12,6 +12,7 @@ let productsData = [
     { id: 10, name: "Блендер Philips", price: 89, icon: "🥤", category: "kitchen", tag: null, description: "1000W, 2 скорости, измельчитель", specs: { "Мощность": "1000W", "Скорости": "2" } }
 ];
 
+
 // ========== ПОЛЬЗОВАТЕЛИ ==========
 let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
 let users = JSON.parse(localStorage.getItem('users')) || [];
@@ -259,43 +260,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('productName')) renderProductPage();
     if (document.getElementById('profileLogin')) renderProfile();
     
-    // Логин
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.onsubmit = (e) => {
-            e.preventDefault();
-            const login = document.getElementById('loginLogin').value;
-            const pwd = document.getElementById('loginPassword').value;
-            const user = users.find(u => u.login === login && u.password === pwd);
-            if (user) {
-                currentUser = { ...user };
-                delete currentUser.password;
-                saveData();
-                window.location.href = user.isAdmin ? '/admin' : '/';
-            } else alert('Неверный логин или пароль');
-        };
-    }
-    
-    // Регистрация
-    const regForm = document.getElementById('registerForm');
-    if (regForm) {
-        regForm.onsubmit = (e) => {
-            e.preventDefault();
-            const login = document.getElementById('regLogin').value;
-            const pwd = document.getElementById('regPassword').value;
-            const phone = document.getElementById('regPhone').value;
-            if (users.find(u => u.login === login)) alert('Логин уже существует');
-            else {
-                users.push({ id: Date.now(), login, password: pwd, phone, isAdmin: false, registerDate: new Date().toISOString() });
-                saveData();
-                alert('Регистрация успешна! Теперь войдите.');
-                window.location.href = '/login';
-            }
-        };
-    }
-});
 
 window.addToCart = addToCart;
 window.changePage = changePage;
 window.openCartModal = openCartModal;
 window.checkoutOrder = checkoutOrder;
+})

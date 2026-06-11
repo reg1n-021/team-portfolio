@@ -1,26 +1,48 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вход | MR Eco</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
-    <div class="auth-container">
-        <div class="auth-card">
-            <div class="logo-center"><i class="fas fa-microchip"></i><h1>MR Eco</h1></div>
-            <h2>🔐 Вход в аккаунт</h2>
+{% extends "base.html" %}
+
+{% block title %}Вход | MR Eco{% endblock %}
+
+{% block content %}
+<div class="login-page">
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="logo-auth">
+                <i class="fas fa-microchip"></i>
+                <h1>MR Eco</h1>
+            </div>
+            <h2>🔐 Добро пожаловать!</h2>
+            
             <form id="loginForm">
-                <input type="text" id="loginLogin" placeholder="Логин" required>
-                <input type="password" id="loginPassword" placeholder="Пароль" required>
-                <button type="submit" class="btn-primary">Войти</button>
+                <div class="form-group">
+                    <label>Логин</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="loginLogin" placeholder="Введите логин" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPassword" placeholder="Введите пароль" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-login">Войти →</button>
             </form>
-            <div class="auth-links"><p>Нет аккаунта? <a href="{{ url_for('register') }}">Зарегистрироваться</a></p></div>
+            
+            <div class="demo-credentials">
+                <p>🔧 <strong>Тестовые данные:</strong></p>
+                <p>Логин: <code>admin</code> / Пароль: <code>admin123</code></p>
+            </div>
+            
+            <div class="register-link">
+                Нет аккаунта? <a href="{{ url_for('main.register') }}">Зарегистрироваться</a>
+            </div>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
-</html>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='auth.js') }}"></script>
+{% endblock %}
