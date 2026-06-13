@@ -13,3 +13,15 @@ def index():
 @app_var.errorhandler(404)
 def page_not_found(error):
     return render_template('index.html'), 404
+
+@app_var.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+@app_var.route('/work')
+def work():
+    return render_template('work.html')
+
+@app_var.route('/team')
+def team():
+    return render_template('team.html')
