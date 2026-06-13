@@ -20,9 +20,9 @@
         <div class="nav-container">
             <div class="logo">MR Dev</div>
             <div class="nav-links">
-                <a href="works.html">Работы</a>
-                <a href="team.html">Команда</a>
-                <a href="contact.html">Связаться</a>
+                <a href="{{ url_for('works') }}" >Работы</a>
+                <a href="{{ url_for('team') }}">Команда</a>
+                <a href="{{ url_for('contact') }}">Связаться</a>
             </div>
             <div class="nav-right">
                 <button class="theme-toggle" id="themeToggle">🌙</button>

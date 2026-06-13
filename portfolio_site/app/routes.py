@@ -18,9 +18,9 @@ def page_not_found(error):
 def contact():
     return render_template('contact.html')
 
-@app_var.route('/work')
-def work():
-    return render_template('work.html')
+@app_var.route('/works')
+def works():
+    return render_template('works.html')
 
 @app_var.route('/team')
 def team():
