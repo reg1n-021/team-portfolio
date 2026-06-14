@@ -1,18 +1,3 @@
-<!-- 
- Вот маршрут профиля:
-@bp.route('/profile')
-def profile():
-    user_id = session.get('user_id')
-    if not user_id:
-        flash('Сначала войдите')
-        return redirect(url_for('main.login'))
-    
-    user = User.query.get(user_id)
-    return render_template('profile.html', user=user)
-
-Значит ты можешь использовать переменую user. В ней есть некоторые параметры: id, login, password_hash, phone, is_admin.
-Можешь использовать их. 
--->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -32,7 +17,11 @@ def profile():
                 <a href="{{ url_for('main.catalog') }}">Каталог</a>
                 <a href="#" id="cartIconProfile"><i class="fas fa-shopping-cart"></i> Корзина <span id="cartCount">0</span></a>
                 <a href="{{ url_for('main.profile') }}" class="active">Профиль</a>
-                <a href="#" id="logoutBtnProfile">Выйти</a>
+                {% if session.user_id %}
+                    <a href="{{ url_for('main.logout') }}">Выйти</a>
+                {% else %}
+                    <a href="{{ url_for('main.login') }}">Войти</a>
+                {% endif %}
             </nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
         </div>
@@ -42,23 +31,40 @@ def profile():
         <div class="profile-header">
             <div class="profile-avatar"><i class="fas fa-user-astronaut"></i></div>
             <div class="profile-info">
-                <h1 id="profileLogin"></h1>
-                <p class="profile-phone" id="profilePhone"></p>
+                <h1>{{ user.login if user else 'Гость' }}</h1>
+                <p class="profile-phone"><i class="fas fa-phone"></i> {{ user.phone if user else 'Не авторизован' }}</p>
+                {% if user and user.is_admin %}
+                    <span style="background:#f57c00;color:#fff;padding:4px 12px;border-radius:40px;display:inline-block;margin-top:10px;">Администратор</span>
+                {% endif %}
             </div>
         </div>
 
         <div class="stats-container">
-            <div class="stat-item"><span class="stat-number" id="memberDays">1</span><span class="stat-name">День с нами</span></div>
+            <div class="stat-item">
+                <i class="fas fa-calendar-day"></i>
+                <span class="stat-number">1</span>
+                <span class="stat-name">День с нами</span>
+            </div>
             <div class="stat-divider"></div>
-            <div class="stat-item"><span class="stat-number" id="totalOrders">0</span><span class="stat-name">Заказов</span></div>
+            <div class="stat-item">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="stat-number">0</span>
+                <span class="stat-name">Заказов</span>
+            </div>
             <div class="stat-divider"></div>
-            <div class="stat-item"><span class="stat-number" id="totalSpent">$0</span><span class="stat-name">Потрачено</span></div>
+            <div class="stat-item">
+                <i class="fas fa-ruble-sign"></i>
+                <span class="stat-number">0</span>
+                <span class="stat-name">Потрачено</span>
+            </div>
         </div>
 
         <div class="orders-section">
             <h3><i class="fas fa-history"></i> История заказов</h3>
-            <div id="userOrders" class="orders-list">
-                <div class="empty-orders"><i class="fas fa-shopping-bag"></i><p>У вас пока нет заказов</p><a href="{{ url_for('main.catalog') }}" class="shop-link">Перейти в каталог →</a></div>
+            <div class="empty-orders">
+                <i class="fas fa-shopping-bag"></i>
+                <p>У вас пока нет заказов</p>
+                <a href="{{ url_for('main.catalog') }}" class="shop-link">Перейти в каталог →</a>
             </div>
         </div>
     </main>
@@ -88,6 +94,74 @@ def profile():
         </div>
     </div>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function updateCartCount() {
+            let count = cart.reduce((s, i) => s + i.quantity, 0);
+            let el = document.getElementById('cartCount');
+            if (el) el.innerText = count;
+        }
+
+        function openCartModal() {
+            let modal = document.getElementById('cartModal');
+            let body = document.getElementById('cartModalBody');
+            if (cart.length === 0) {
+                body.innerHTML = '<p style="text-align:center;">🛒 Корзина пуста</p>';
+            } else {
+                let html = '', total = 0;
+                cart.forEach(item => {
+                    let itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    html += `<div class="cart-item">
+                        <span style="flex:2;"><strong>${item.name}</strong></span>
+                        <span>${item.price} ₽</span>
+                        <span>× ${item.quantity}</span>
+                        <span style="color:#2e7d32;">${itemTotal} ₽</span>
+                        <button onclick="removeFromCart(${item.id})" style="background:#ff4444; color:white; border:none; border-radius:50%; width:25px; height:25px; cursor:pointer;">✕</button>
+                    </div>`;
+                });
+                html += `<div class="cart-total">💰 Итого: ${total} ₽</div>`;
+                body.innerHTML = html;
+            }
+            modal.style.display = 'flex';
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            openCartModal();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            let cartIcon = document.getElementById('cartIconProfile');
+            if (cartIcon) cartIcon.onclick = openCartModal;
+            
+            let cartClose = document.getElementById('cartClose');
+            if (cartClose) cartClose.onclick = () => document.getElementById('cartModal').style.display = 'none';
+            
+            let checkoutBtn = document.getElementById('checkoutBtnModal');
+            if (checkoutBtn) {
+                checkoutBtn.onclick = () => {
+                    if (cart.length === 0) alert('Корзина пуста');
+                    else { 
+                        alert('Заказ оформлен!'); 
+                        cart = []; 
+                        localStorage.setItem('cart', JSON.stringify(cart)); 
+                        updateCartCount(); 
+                        document.getElementById('cartModal').style.display = 'none'; 
+                    }
+                };
+            }
+            
+            window.onclick = (e) => { 
+                if (e.target === document.getElementById('cartModal')) 
+                    document.getElementById('cartModal').style.display = 'none'; 
+            };
+            
+            updateCartCount();
+        });
+    </script>
 </body>
 </html>

@@ -13,38 +13,39 @@
         <div class="container header-container">
             <div class="logo"><i class="fas fa-microchip"></i><span>MR Eco</span></div>
             <nav class="nav">
-                <a href="{{ url_for('index') }}">Главная</a>
-                <a href="{{ url_for('catalog') }}">Каталог</a>
+                <a href="{{ url_for('main.index') }}">Главная</a>
+                <a href="{{ url_for('main.catalog') }}">Каталог</a>
                 <a href="javascript:void(0)" id="cartIconProduct"><i class="fas fa-shopping-cart"></i> Корзина <span id="cartCount">0</span></a>
-                <a href="{{ url_for('profile') }}">Профиль</a>
-                <a href="javascript:void(0)" id="logoutBtnProduct">Выйти</a>
+                <a href="{{ url_for('main.profile') }}">Профиль</a>
+                {% if session.user_id %}
+                    <a href="{{ url_for('main.logout') }}">Выйти</a>
+                {% else %}
+                    <a href="{{ url_for('main.login') }}">Войти</a>
+                {% endif %}
             </nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
         </div>
     </header>
 
     <main class="container">
-        <div class="product-detail">
-            <div class="product-image-large">
-                <img src="{{ url_for('static', filename='images/' + product.image_url) }}" alt="{{ product.name }}" style="width: 100%; max-width: 300px; border-radius: 20px;">
+        <div class="product-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; background: white; border-radius: 32px; padding: 40px; margin: 40px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div style="background: #f5f7fa; border-radius: 24px; padding: 40px; display: flex; align-items: center; justify-content: center;">
+                <img src="{{ url_for('static', filename='images/' + product.image_url) }}" alt="{{ product.name }}" style="max-width: 100%; max-height: 350px; object-fit: contain;">
             </div>
-            <div class="product-detail-info">
-                <h1>{{ product.name }}</h1>
-                <div class="product-price-large">{{ product.price }} ₽</div>
-                <div class="product-description">
-                    <h3>Описание:</h3>
-                    <p>{{ product.description }}</p>
+            <div>
+                <h1 style="font-size: 2rem; font-weight: 800; margin-bottom: 15px;">{{ product.name }}</h1>
+                <div style="font-size: 2rem; font-weight: 800; color: #2e7d32; margin-bottom: 20px;">{{ "{:,}".format(product.price).replace(',', ' ') }} ₽</div>
+                <div style="background: #f5f7fa; border-radius: 20px; padding: 20px; margin-bottom: 25px;">
+                    <h3 style="margin-bottom: 10px; color: #2e7d32;"><i class="fas fa-info-circle"></i> Описание</h3>
+                    <p style="line-height: 1.6; color: #4a5a6a;">{{ product.description }}</p>
                 </div>
-                <button class="btn-primary add-to-cart" 
-                        data-id="{{ product.id }}" 
-                        data-name="{{ product.name }}" 
-                        data-price="{{ product.price }}" 
-                        style="width: 100%; margin-top: 20px;">
-                    Добавить в корзину
-                </button>
-                <a href="{{ url_for('catalog') }}" class="btn-secondary" style="display: block; text-align: center; margin-top: 15px;">
-                    ← Назад в каталог
-                </a>
+                <div style="display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 8px; background: #e8ecef; padding: 8px 16px; border-radius: 40px;"><i class="fas fa-truck" style="color: #2e7d32;"></i> Быстрая доставка</div>
+                    <div style="display: flex; align-items: center; gap: 8px; background: #e8ecef; padding: 8px 16px; border-radius: 40px;"><i class="fas fa-shield-alt" style="color: #2e7d32;"></i> Гарантия 12 мес</div>
+                    <div style="display: flex; align-items: center; gap: 8px; background: #e8ecef; padding: 8px 16px; border-radius: 40px;"><i class="fas fa-credit-card" style="color: #2e7d32;"></i> Оплата при получении</div>
+                </div>
+                <button class="add-to-cart" data-id="{{ product.id }}" data-name="{{ product.name }}" data-price="{{ product.price }}" style="width: 100%; padding: 15px; background: #2e7d32; color: white; border: none; border-radius: 60px; font-size: 1.1rem; font-weight: 700; cursor: pointer; margin-bottom: 15px;"><i class="fas fa-shopping-cart"></i> Добавить в корзину</button>
+                <a href="{{ url_for('main.catalog') }}" style="display: block; text-align: center; padding: 12px; border: 2px solid #e0e4e8; border-radius: 60px; text-decoration: none; color: #1a2a3a; font-weight: 600;"><i class="fas fa-arrow-left"></i> Назад в каталог</a>
             </div>
         </div>
     </main>
@@ -85,35 +86,25 @@
 
         function addToCart(id, name, price) {
             let existing = cart.find(i => i.id === id);
-            if (existing) {
-                existing.quantity++;
-            } else {
-                cart.push({ id: id, name: name, price: price, quantity: 1 });
-            }
+            if (existing) { existing.quantity++; } 
+            else { cart.push({ id: id, name: name, price: price, quantity: 1 }); }
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartCount();
-            alert('✅ Добавлено: ' + name);
+            alert('✅ ' + name + ' добавлен в корзину');
         }
 
         function openCartModal() {
             let modal = document.getElementById('cartModal');
             let body = document.getElementById('cartModalBody');
-            if (cart.length === 0) {
-                body.innerHTML = '<p style="text-align:center;">🛒 Корзина пуста</p>';
-            } else {
+            if (cart.length === 0) { body.innerHTML = '<p style="text-align:center;">Корзина пуста</p>'; }
+            else {
                 let html = '', total = 0;
                 cart.forEach(item => {
                     let itemTotal = item.price * item.quantity;
                     total += itemTotal;
-                    html += `<div class="cart-item">
-                        <span style="flex:2;"><strong>${item.name}</strong></span>
-                        <span style="flex:1;">${item.price} ₽</span>
-                        <span style="flex:1;">× ${item.quantity}</span>
-                        <span style="flex:1; color:#2e7d32; font-weight:bold;">${itemTotal} ₽</span>
-                        <button onclick="removeFromCart(${item.id})" style="background:#ff4444; color:white; border:none; border-radius:50%; width:25px; height:25px; cursor:pointer;">✕</button>
-                    </div>`;
+                    html += `<div class="cart-item"><span><strong>${item.name}</strong></span><span>${item.price} ₽ × ${item.quantity}</span><span>${itemTotal} ₽</span><button onclick="removeFromCart(${item.id})">✕</button></div>`;
                 });
-                html += `<div class="cart-total">💰 Итого: ${total} ₽</div>`;
+                html += `<div class="cart-total">Итого: ${total} ₽</div>`;
                 body.innerHTML = html;
             }
             modal.style.display = 'flex';
@@ -126,44 +117,17 @@
             openCartModal();
         }
 
-        // Назначаем обработчики после загрузки страницы
-        document.addEventListener('DOMContentLoaded', function() {
-            let cartIcon = document.getElementById('cartIconProduct') || document.getElementById('cartIconCatalog');
-            if (cartIcon) cartIcon.onclick = openCartModal;
-            
-            let cartClose = document.getElementById('cartClose');
-            if (cartClose) cartClose.onclick = () => document.getElementById('cartModal').style.display = 'none';
-            
-            let checkoutBtn = document.getElementById('checkoutBtnModal');
-            if (checkoutBtn) {
-                checkoutBtn.onclick = () => {
-                    if (cart.length === 0) alert('🛒 Корзина пуста');
-                    else { 
-                        alert('✅ Заказ оформлен! Спасибо за покупку!'); 
-                        cart = []; 
-                        localStorage.setItem('cart', JSON.stringify(cart)); 
-                        updateCartCount(); 
-                        document.getElementById('cartModal').style.display = 'none'; 
-                    }
-                };
-            }
-            
-            window.onclick = (e) => { 
-                if (e.target === document.getElementById('cartModal')) 
-                    document.getElementById('cartModal').style.display = 'none'; 
-            };
-            
-            // Добавляем обработчики для всех кнопок "В корзину"
-            document.querySelectorAll('.add-to-cart').forEach(btn => {
-                btn.onclick = () => addToCart(
-                    parseInt(btn.dataset.id),
-                    btn.dataset.name,
-                    parseInt(btn.dataset.price)
-                );
-            });
-            
-            updateCartCount();
+        document.getElementById('cartIconProduct').onclick = openCartModal;
+        document.getElementById('cartClose').onclick = () => document.getElementById('cartModal').style.display = 'none';
+        document.getElementById('checkoutBtnModal').onclick = () => {
+            if (cart.length === 0) alert('Корзина пуста');
+            else { alert('Заказ оформлен'); cart = []; localStorage.setItem('cart', JSON.stringify(cart)); updateCartCount(); document.getElementById('cartModal').style.display = 'none'; }
+        };
+        window.onclick = (e) => { if (e.target === document.getElementById('cartModal')) document.getElementById('cartModal').style.display = 'none'; };
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+            btn.onclick = () => addToCart(parseInt(btn.dataset.id), btn.dataset.name, parseInt(btn.dataset.price));
         });
+        updateCartCount();
     </script>
 </body>
 </html>

@@ -1,7 +1,6 @@
-from flask import Blueprint, request, redirect, url_for, flash, render_template
+from flask import Blueprint, request, redirect, url_for, flash, render_template, session
 from models import db, User, Products
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import session
 
 bp = Blueprint('main', __name__)
 
@@ -41,33 +40,13 @@ def login():
         user = User.query.filter_by(login=login).first()
         
         if user and check_password_hash(user.password_hash, password):
-            # сохраняем пользователя в сессии
             session['user_id'] = user.id
-            flash('Вы вошли')
+            flash('Вы вошли', 'success')
             return redirect(url_for('main.index'))
         else:
-            flash('Неверный логин или пароль')
-            
-        if user.is_admin:
-            return redirect(url_for('main.admin_panel'))  
-        else:
-            return redirect(url_for('main.index'))
+            flash('Неверный логин или пароль', 'error')
     
     return render_template('login.html')
-
-@bp.route('/order_success')
-def order_success():
-    return render_template('order_success.html')
-
-@bp.route('/profile')
-def profile():
-    user_id = session.get('user_id')
-    if not user_id:
-        flash('Сначала войдите')
-        return redirect(url_for('main.login'))
-    
-    user = User.query.get(user_id)
-    return render_template('profile.html', user=user)
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
@@ -76,21 +55,36 @@ def register():
         password = request.form.get('password')
         phone = request.form.get('phone')
         
-        # проверяем, нет ли такого пользователя
         if User.query.filter_by(login=login).first():
-            flash('Логин уже занят')
+            flash('Логин уже занят', 'error')
             return redirect(url_for('main.register'))
         
-        # создаём нового пользователя
         hashed = generate_password_hash(password)
         user = User(login=login, password_hash=hashed, phone=phone)
         db.session.add(user)
         db.session.commit()
         
-        flash('Регистрация успешна! Теперь войдите')
+        flash('Регистрация успешна! Теперь войдите', 'success')
         return redirect(url_for('main.login'))
     
     return render_template('register.html')
+
+@bp.route('/profile')
+def profile():
+    user = None
+    if 'user_id' in session:
+        user = User.query.get(session['user_id'])
+    return render_template('profile.html', user=user)
+
+@bp.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    flash('Вы вышли', 'info')
+    return redirect(url_for('main.index'))
+
+@bp.route('/order_success')
+def order_success():
+    return render_template('order_success.html')
 
 @bp.route('/check-db')
 def check_db():
@@ -101,10 +95,3 @@ def check_db():
         return f"✅ БД работает! Всего товаров: {count}<br><br>Список товаров:<br>{product_list}"
     except Exception as e:
         return f"❌ Ошибка БД: {str(e)}"
-    
-
-@bp.route('/logout')
-def logout():
-    session.pop('user_id', None)
-    flash('Вы вышли')
-    return redirect(url_for('main.index'))
