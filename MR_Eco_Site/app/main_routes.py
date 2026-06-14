@@ -2,7 +2,6 @@ from flask import Blueprint, request, redirect, url_for, flash, render_template
 from models import db, User, Products
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import session
-from app.forms import RegistrationForm, LoginForm
 
 bp = Blueprint('main', __name__)
 
@@ -35,10 +34,9 @@ def checkout():
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        login = form.login.data
-        password = form.password.data
+    if request.method == 'POST':
+        login = request.form.get('login')
+        password = request.form.get('password')
         
         user = User.query.filter_by(login=login).first()
         
@@ -49,6 +47,11 @@ def login():
             return redirect(url_for('main.index'))
         else:
             flash('Неверный логин или пароль')
+            
+        if user.is_admin:
+            return redirect(url_for('main.admin_panel'))  
+        else:
+            return redirect(url_for('main.index'))
     
     return render_template('login.html')
 
@@ -58,15 +61,20 @@ def order_success():
 
 @bp.route('/profile')
 def profile():
-    return render_template('profile.html')
+    user_id = session.get('user_id')
+    if not user_id:
+        flash('Сначала войдите')
+        return redirect(url_for('main.login'))
+    
+    user = User.query.get(user_id)
+    return render_template('profile.html', user=user)
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        login = form.login.data
-        password = form.password.data
-        phone = form.phone.data
+    if request.method == 'POST':
+        login = request.form.get('login')
+        password = request.form.get('password')
+        phone = request.form.get('phone')
         
         # проверяем, нет ли такого пользователя
         if User.query.filter_by(login=login).first():
@@ -93,6 +101,7 @@ def check_db():
         return f"✅ БД работает! Всего товаров: {count}<br><br>Список товаров:<br>{product_list}"
     except Exception as e:
         return f"❌ Ошибка БД: {str(e)}"
+    
     
 @bp.route('/logout')
 def logout():
