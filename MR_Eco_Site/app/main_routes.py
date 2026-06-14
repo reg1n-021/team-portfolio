@@ -102,7 +102,7 @@ def check_db():
     except Exception as e:
         return f"❌ Ошибка БД: {str(e)}"
     
-    
+
 @bp.route('/logout')
 def logout():
     session.pop('user_id', None)

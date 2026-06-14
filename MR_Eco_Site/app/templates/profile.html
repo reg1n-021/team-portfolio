@@ -1,3 +1,18 @@
+<!-- 
+ Вот маршрут профиля:
+@bp.route('/profile')
+def profile():
+    user_id = session.get('user_id')
+    if not user_id:
+        flash('Сначала войдите')
+        return redirect(url_for('main.login'))
+    
+    user = User.query.get(user_id)
+    return render_template('profile.html', user=user)
+
+Значит ты можешь использовать переменую user. В ней есть некоторые параметры: id, login, password_hash, phone, is_admin.
+Можешь использовать их. 
+-->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
