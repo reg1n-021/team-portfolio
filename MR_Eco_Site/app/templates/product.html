@@ -1,133 +1,91 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ product.name }} | MR Eco</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
-    <header class="header">
-        <div class="container header-container">
-            <div class="logo"><i class="fas fa-microchip"></i><span>MR Eco</span></div>
-            <nav class="nav">
-                <a href="{{ url_for('main.index') }}">Главная</a>
-                <a href="{{ url_for('main.catalog') }}">Каталог</a>
-                <a href="javascript:void(0)" id="cartIconProduct"><i class="fas fa-shopping-cart"></i> Корзина <span id="cartCount">0</span></a>
-                <a href="{{ url_for('main.profile') }}">Профиль</a>
-                {% if session.user_id %}
-                    <a href="{{ url_for('main.logout') }}">Выйти</a>
-                {% else %}
-                    <a href="{{ url_for('main.login') }}">Войти</a>
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} | MR Eco{% endblock %}
+
+{% block content %}
+<div class="product-page">
+    <div class="product-container">
+        <!-- Кнопка назад -->
+        <a href="{{ url_for('main.catalog') }}" class="back-button">
+            <i class="fas fa-arrow-left"></i> Назад в каталог
+        </a>
+        
+        <div class="product-detail-grid">
+            <!-- Изображение -->
+            <div class="product-image-wrapper">
+                <i class="fas fa-microchip"></i>
+                {% if product.tag %}
+                <span class="product-badge">{{ product.tag }}</span>
                 {% endif %}
-            </nav>
-            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
-        </div>
-    </header>
-
-    <main class="container">
-        <div class="product-detail" style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; background: white; border-radius: 32px; padding: 40px; margin: 40px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-            <div style="background: #f5f7fa; border-radius: 24px; padding: 40px; display: flex; align-items: center; justify-content: center;">
-                <img src="{{ url_for('static', filename='images/' + product.image_url) }}" alt="{{ product.name }}" style="max-width: 100%; max-height: 350px; object-fit: contain;">
             </div>
-            <div>
-                <h1 style="font-size: 2rem; font-weight: 800; margin-bottom: 15px;">{{ product.name }}</h1>
-                <div style="font-size: 2rem; font-weight: 800; color: #2e7d32; margin-bottom: 20px;">{{ "{:,}".format(product.price).replace(',', ' ') }} ₽</div>
-                <div style="background: #f5f7fa; border-radius: 20px; padding: 20px; margin-bottom: 25px;">
-                    <h3 style="margin-bottom: 10px; color: #2e7d32;"><i class="fas fa-info-circle"></i> Описание</h3>
-                    <p style="line-height: 1.6; color: #4a5a6a;">{{ product.description }}</p>
+            
+            <!-- Информация -->
+            <div class="product-info-wrapper">
+                <h1 class="product-title">{{ product.name }}</h1>
+                
+                <div class="product-price-large">
+                    {{ product.price }} ₽
                 </div>
-                <div style="display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap;">
-                    <div style="display: flex; align-items: center; gap: 8px; background: #e8ecef; padding: 8px 16px; border-radius: 40px;"><i class="fas fa-truck" style="color: #2e7d32;"></i> Быстрая доставка</div>
-                    <div style="display: flex; align-items: center; gap: 8px; background: #e8ecef; padding: 8px 16px; border-radius: 40px;"><i class="fas fa-shield-alt" style="color: #2e7d32;"></i> Гарантия 12 мес</div>
-                    <div style="display: flex; align-items: center; gap: 8px; background: #e8ecef; padding: 8px 16px; border-radius: 40px;"><i class="fas fa-credit-card" style="color: #2e7d32;"></i> Оплата при получении</div>
+                
+                <div class="product-description">
+                    <h3>Описание</h3>
+                    <p>{{ product.description or 'Описание товара отсутствует' }}</p>
                 </div>
-                <button class="add-to-cart" data-id="{{ product.id }}" data-name="{{ product.name }}" data-price="{{ product.price }}" style="width: 100%; padding: 15px; background: #2e7d32; color: white; border: none; border-radius: 60px; font-size: 1.1rem; font-weight: 700; cursor: pointer; margin-bottom: 15px;"><i class="fas fa-shopping-cart"></i> Добавить в корзину</button>
-                <a href="{{ url_for('main.catalog') }}" style="display: block; text-align: center; padding: 12px; border: 2px solid #e0e4e8; border-radius: 60px; text-decoration: none; color: #1a2a3a; font-weight: 600;"><i class="fas fa-arrow-left"></i> Назад в каталог</a>
+                
+                <!-- Характеристики -->
+                <div class="product-features">
+                    <div class="feature-item">
+                        <i class="fas fa-truck"></i>
+                        <span>Быстрая доставка</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Гарантия 12 мес</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Оплата при получении</span>
+                    </div>
+                </div>
+                
+                <!-- Кнопки -->
+                <div class="product-actions">
+                    <button class="btn-primary add-to-cart-btn" data-id="{{ product.id }}" data-name="{{ product.name }}" data-price="{{ product.price }}">
+                        <i class="fas fa-shopping-cart"></i> Добавить в корзину
+                    </button>
+                    <a href="{{ url_for('main.catalog') }}" class="btn-secondary">
+                        <i class="fas fa-th-list"></i> В каталог
+                    </a>
+                </div>
             </div>
-        </div>
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo"><i class="fas fa-microchip"></i> MR Eco</div>
-                <div class="footer-contacts">
-                    <div class="contact-item"><i class="fas fa-envelope"></i><a href="mailto:catran12@yandex.ru">catran12@yandex.ru</a></div>
-                    <div class="contact-item"><i class="fab fa-telegram"></i><a href="https://t.me/magomed_frontend" target="_blank">@magomed_frontend</a></div>
-                    <div class="contact-item"><i class="fab fa-github"></i><a href="https://github.com/magomed" target="_blank">github.com/magomed</a></div>
-                </div>
-                <div class="footer-credits">
-                    <p>Сделано с ❤️ <strong>Магомедом</strong> и <strong>Рамазаном</strong></p>
-                    <p class="copyright">© 2026 MR Eco</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <div class="cart-modal" id="cartModal">
-        <div class="cart-modal-content">
-            <div class="cart-modal-header"><h3>Корзина</h3><span class="cart-close" id="cartClose">&times;</span></div>
-            <div class="cart-modal-body" id="cartModalBody"><p>Корзина пуста</p></div>
-            <div class="cart-modal-footer"><button class="btn-primary" id="checkoutBtnModal">Оформить заказ</button></div>
         </div>
     </div>
+</div>
 
-    <script>
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        function updateCartCount() {
-            let count = cart.reduce((s, i) => s + i.quantity, 0);
-            let el = document.getElementById('cartCount');
-            if (el) el.innerText = count;
-        }
-
-        function addToCart(id, name, price) {
-            let existing = cart.find(i => i.id === id);
-            if (existing) { existing.quantity++; } 
-            else { cart.push({ id: id, name: name, price: price, quantity: 1 }); }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartCount();
-            alert('✅ ' + name + ' добавлен в корзину');
-        }
-
-        function openCartModal() {
-            let modal = document.getElementById('cartModal');
-            let body = document.getElementById('cartModalBody');
-            if (cart.length === 0) { body.innerHTML = '<p style="text-align:center;">Корзина пуста</p>'; }
-            else {
-                let html = '', total = 0;
-                cart.forEach(item => {
-                    let itemTotal = item.price * item.quantity;
-                    total += itemTotal;
-                    html += `<div class="cart-item"><span><strong>${item.name}</strong></span><span>${item.price} ₽ × ${item.quantity}</span><span>${itemTotal} ₽</span><button onclick="removeFromCart(${item.id})">✕</button></div>`;
-                });
-                html += `<div class="cart-total">Итого: ${total} ₽</div>`;
-                body.innerHTML = html;
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Добавление в корзину
+    document.querySelectorAll('.add-to-cart-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const id = parseInt(this.dataset.id);
+            const name = this.dataset.name;
+            const price = parseFloat(this.dataset.price);
+            
+            // Используем глобальную функцию из base.html
+            if (window.addToCart) {
+                window.addToCart(id, name, price);
             }
-            modal.style.display = 'flex';
-        }
-
-        function removeFromCart(id) {
-            cart = cart.filter(i => i.id !== id);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartCount();
-            openCartModal();
-        }
-
-        document.getElementById('cartIconProduct').onclick = openCartModal;
-        document.getElementById('cartClose').onclick = () => document.getElementById('cartModal').style.display = 'none';
-        document.getElementById('checkoutBtnModal').onclick = () => {
-            if (cart.length === 0) alert('Корзина пуста');
-            else { alert('Заказ оформлен'); cart = []; localStorage.setItem('cart', JSON.stringify(cart)); updateCartCount(); document.getElementById('cartModal').style.display = 'none'; }
-        };
-        window.onclick = (e) => { if (e.target === document.getElementById('cartModal')) document.getElementById('cartModal').style.display = 'none'; };
-        document.querySelectorAll('.add-to-cart').forEach(btn => {
-            btn.onclick = () => addToCart(parseInt(btn.dataset.id), btn.dataset.name, parseInt(btn.dataset.price));
+            
+            // Анимация
+            this.innerHTML = '<i class="fas fa-check"></i> В корзине!';
+            this.style.background = '#1b5e20';
+            
+            setTimeout(() => {
+                this.innerHTML = '<i class="fas fa-shopping-cart"></i> Добавить в корзину';
+                this.style.background = '#2e7d32';
+            }, 2000);
         });
-        updateCartCount();
-    </script>
-</body>
-</html>
+    });
+});
+</script>
+{% endblock %}
