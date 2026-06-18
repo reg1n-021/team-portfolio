@@ -50,3 +50,30 @@ def delete_product(product_id):
     db.session.commit()
     flash(f'Товар "{product.name}" удалён')
     return redirect(url_for('admin.admin_panel'))
+
+@admin_bp.route('/admin/product/add', methods=['GET', 'POST'])
+def admin_add_product():
+    if not session.get('is_admin'):
+        flash('Нет прав')
+        return redirect(url_for('main.index'))
+    
+    if request.method == 'POST':
+        name = request.form.get('name')
+        price = request.form.get('price')
+        description = request.form.get('description')
+        image_url = request.form.get('image_url')
+        category_id = request.form.get('category_id')
+        
+        product = Products(
+            name=name,
+            price=price,
+            description=description,
+            image_url=image_url,
+            category_id=category_id
+        )
+        db.session.add(product)
+        db.session.commit()
+        flash('Товар добавлен')
+        return redirect(url_for('main.admin_panel'))
+    
+    return render_template('admin_add_product.html')
