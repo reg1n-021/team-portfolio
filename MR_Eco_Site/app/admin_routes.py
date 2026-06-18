@@ -6,6 +6,7 @@ admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
 @admin_bp.route('/')
 def admin_panel():
+#Это главная админка
     if not session.get('is_admin'):
         flash('Доступ запрещён')
         return redirect(url_for('main.index'))
@@ -16,6 +17,7 @@ def admin_panel():
     return render_template('admin.html', users=users, orders=orders, products=products)
 
 @admin_bp.route('/user/<int:user_id>/toggle')
+#Этот маршрут делает чтобы пользователь стал админом, или наоборот.
 def toggle_user(user_id):
     if not session.get('is_admin'):
         flash('Нет прав')
@@ -28,6 +30,7 @@ def toggle_user(user_id):
     return redirect(url_for('admin.admin_panel'))
 
 @admin_bp.route('/order/<int:order_id>/delete')
+#Этот маршрут для удаления товара из БД
 def delete_order(order_id):
     if not session.get('is_admin'):
         flash('Нет прав')
@@ -40,6 +43,7 @@ def delete_order(order_id):
     return redirect(url_for('admin.admin_panel'))
 
 @admin_bp.route('/product/<int:product_id>/delete')
+#Этот маршрут для продукта из БД
 def delete_product(product_id):
     if not session.get('is_admin'):
         flash('Нет прав')
@@ -52,6 +56,7 @@ def delete_product(product_id):
     return redirect(url_for('admin.admin_panel'))
 
 @admin_bp.route('/admin/product/add', methods=['GET', 'POST'])
+#Этот маршрут для добавления товаров 
 def admin_add_product():
     if not session.get('is_admin'):
         flash('Нет прав')
