@@ -3,36 +3,36 @@ from models import db, User, Products
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import session
 
-bp = Blueprint('main', __name__)
+main_bp = Blueprint('main', __name__, url_prefix='/main')
 
-@bp.route('/')
-@bp.route('/index')
+@main_bp.route('/')
+@main_bp.route('/index')
 def index():
     return render_template('index.html')
 
-@bp.route('/catalog')
+@main_bp.route('/catalog')
 def catalog():
     products = Products.query.all()
     return render_template('catalog.html', products=products)
 
-@bp.route('/product/<int:product_id>')
+@main_bp.route('/product/<int:product_id>')
 def product(product_id):
     product = Products.query.get_or_404(product_id)
     return render_template('product.html', product=product)
 
-@bp.route('/admin')
+@main_bp.route('/admin')
 def admin():
     return render_template('admin.html')
 
-@bp.route('/cart')
+@main_bp.route('/cart')
 def cart():
     return render_template('cart.html')
 
-@bp.route('/checkout')
+@main_bp.route('/checkout')
 def checkout():
     return render_template('checkout.html')
 
-@bp.route('/login', methods=['GET', 'POST'])
+@main_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         login = request.form.get('login')
@@ -55,11 +55,11 @@ def login():
     
     return render_template('login.html')
 
-@bp.route('/order_success')
+@main_bp.route('/order_success')
 def order_success():
     return render_template('order_success.html')
 
-@bp.route('/profile')
+@main_bp.route('/profile')
 def profile():
     user_id = session.get('user_id')
     if not user_id:
@@ -69,7 +69,7 @@ def profile():
     user = User.query.get(user_id)
     return render_template('profile.html', user=user)
 
-@bp.route('/register', methods=['GET', 'POST'])
+@main_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         login = request.form.get('login')
@@ -92,7 +92,7 @@ def register():
     
     return render_template('register.html')
 
-@bp.route('/check-db')
+@main_bp.route('/check-db')
 def check_db():
     try:
         count = Products.query.count()
@@ -103,7 +103,7 @@ def check_db():
         return f"❌ Ошибка БД: {str(e)}"
     
 
-@bp.route('/logout')
+@main_bp.route('/logout')
 def logout():
     session.pop('user_id', None)
     flash('Вы вышли')

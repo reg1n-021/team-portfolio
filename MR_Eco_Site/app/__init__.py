@@ -8,7 +8,8 @@ def create_app():
     
     db.init_app(app_var)
     
-    from app.main_routes import bp
-    app_var.register_blueprint(bp)
-    
+    from app.main_routes import main_bp
+    from app.admin_routes import admin_bp
+    app_var.register_blueprint(main_bp)
+    app_var.register_blueprint(admin_bp)
     return app_var
