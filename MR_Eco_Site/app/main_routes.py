@@ -3,7 +3,7 @@ from models import db, User, Products
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import session
 
-main_bp = Blueprint('main', __name__, url_prefix='/main')
+main_bp = Blueprint('main', __name__)
 
 @main_bp.route('/')
 @main_bp.route('/index')

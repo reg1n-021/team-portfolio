@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from models import db, User, Products, Order
-from app import admin_bp
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -62,7 +61,7 @@ def admin_add_product():
         flash('Нет прав')
         return redirect(url_for('main.index'))
     
-    if request.method == 'POST':
+    if request.method == 'POST':    
         name = request.form.get('name')
         price = request.form.get('price')
         description = request.form.get('description')
